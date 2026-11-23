@@ -1,0 +1,15 @@
+{
+  "version": "1.4.0",
+  "versionCode": 10400,
+  "date": "23/11/2026",
+  "notes": [
+    "Xe không có màn hình cảm ứng: núm xoay giờ vào được menu ba chấm, bảng chọn app và bảng bố cục",
+    "Nút giọng nói dùng giọng nói tiếng Việt của TPlay (trước đây có máy bấm không phản hồi)",
+    "Đầu xe có micro không hoạt động: tự chuyển sang micro điện thoại",
+    "Thông báo lỗi rõ ràng hơn khi đăng nhập hoặc thanh toán quá nhiều lần",
+    "Trang tải và cập nhật mới: tplay.io.vn"
+  ],
+  "apk": "https://github.com/shinchii/tplay/releases/download/v1.4.0/TPlayAuto-1.4.0.apk",
+  "sha256": "7e636df33cc8a3fe4f2c49b100c317d489bf4733d2549ff03ac13557d416f98a",
+  "size": 31320231
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TPlay Auto – Tải ứng dụng</title>
+<meta name="description" content="TPlay Auto đưa ứng dụng trên điện thoại Android lên màn hình ô tô: bản đồ, YouTube, nhạc, chia màn hình. Dùng thử miễn phí 7 ngày.">
+<meta property="og:title" content="TPlay Auto">
+<meta property="og:description" content="Đưa ứng dụng điện thoại lên màn hình ô tô. Dùng thử miễn phí 7 ngày.">
+<meta property="og:image" content="https://tplay.io.vn/logo.png">
+<link rel="icon" href="favicon.png">
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --line: #262d36; --text: #e8edf2; --muted: #9aa5b1;
+    --pri: #ffb300; --pri-text: #1a1300; --ok: #3fb950;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--pri); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
+  header { text-align: center; }
+  header img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 10px 40px rgba(255, 179, 0, .18); }
+  h1 { font-size: 34px; margin: 16px 0 6px; letter-spacing: -.5px; }
+  .lead { color: var(--muted); margin: 0 auto 24px; max-width: 520px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 420px; margin: 0 auto;
+         padding: 16px 20px; border-radius: 14px; font-size: 18px; font-weight: 700; text-decoration: none; }
+  .btn.main { background: var(--pri); color: var(--pri-text); }
+  .btn.alt { margin-top: 10px; background: transparent; color: var(--text); border: 1px solid var(--line); font-size: 16px; font-weight: 600; }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .meta { text-align: center; color: var(--muted); font-size: 14px; margin-top: 10px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-top: 20px; }
+  h2 { font-size: 20px; margin: 0 0 12px; }
+  ul.news { margin: 0; padding-left: 20px; }
+  ul.news li { margin: 4px 0; }
+  ol.steps { margin: 0; padding-left: 22px; }
+  ol.steps li { margin: 8px 0; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .feature { padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, .03); border: 1px solid var(--line); }
+  .feature b { display: block; margin-bottom: 4px; }
+  .feature span { color: var(--muted); font-size: 14px; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .plan { text-align: center; padding: 16px 10px; border-radius: 12px; border: 1px solid var(--line); }
+  .plan .price { font-size: 24px; font-weight: 800; color: var(--pri); }
+  .plan .name { color: var(--muted); font-size: 14px; }
+  .note { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+  .support { display: flex; gap: 10px; flex-wrap: wrap; }
+  .support a { flex: 1 1 200px; text-align: center; padding: 12px; border-radius: 12px; border: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 600; }
+  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
+  @media (max-width: 480px) { h1 { font-size: 28px; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="logo.png" alt="TPlay Auto">
+    <h1>TPlay Auto</h1>
+    <p class="lead">Đưa ứng dụng trên điện thoại Android lên màn hình ô tô: Google Maps, Vietmap, YouTube, nhạc, chia màn hình nhiều ứng dụng, điều khiển bằng giọng nói tiếng Việt.</p>
+    <a id="dl" class="btn main" href="https://github.com/shinchii/tplay/releases/latest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+      <span id="dl-text">Tải TPlay Auto</span>
+    </a>
+    <a id="drive" class="btn alt" href="#" hidden>Tải dự phòng (Google Drive)</a>
+    <p class="meta" id="meta">Android 8.0 trở lên · Dùng thử miễn phí 7 ngày</p>
+  </header>
+
+  <section id="news-box" hidden>
+    <h2 id="news-title">Có gì mới</h2>
+    <ul class="news" id="news"></ul>
+  </section>
+
+  <section>
+    <h2>Cài đặt</h2>
+    <ol class="steps">
+      <li>Bấm <b>Tải TPlay Auto</b> ở trên, đợi tải xong file <b>.apk</b>.</li>
+      <li>Mở file vừa tải. Nếu điện thoại hỏi, cho phép <b>cài ứng dụng không rõ nguồn gốc</b> (cho Chrome hoặc ứng dụng Tệp).</li>
+      <li>Nếu Google Play Protect cảnh báo, bấm <b>Thêm chi tiết → Vẫn cài đặt</b>. TPlay Auto không có trên CH Play nên Android cảnh báo như vậy.</li>
+      <li>Mở TPlay Auto, đăng ký bằng <b>email hoặc số điện thoại</b>. Bạn được dùng thử 7 ngày, không cần thẻ.</li>
+      <li>Cắm cáp USB vào xe. <b>Lần đầu</b>, app tự thiết lập chứng chỉ: rút cáp ra và cắm lại là dùng được.</li>
+      <li>Nếu Android hỏi "Mở bằng ứng dụng nào", chọn <b>TPlay Auto</b> và tích <b>Luôn dùng</b>, để lần sau vào thẳng.</li>
+    </ol>
+    <p class="note">Sau khi cài, TPlay Auto tự cập nhật bản mới. Không cần tải lại từ trang này.</p>
+  </section>
+
+  <section>
+    <h2>Tính năng</h2>
+    <div class="features">
+      <div class="feature"><b>Chia màn hình</b><span>Tối đa 4 ứng dụng cùng lúc trên màn xe: bản đồ, video, nhạc…</span></div>
+      <div class="feature"><b>Giọng nói tiếng Việt</b><span>"Chỉ đường về nhà", "mở YouTube", "phát nhạc Sơn Tùng"…</span></div>
+      <div class="feature"><b>Mọi ứng dụng</b><span>Google Maps, Vietmap, Waze, YouTube, Zalo… ngay trên màn hình xe.</span></div>
+      <div class="feature"><b>Xe không cảm ứng</b><span>Điều khiển bằng núm xoay, nút điều hướng trên xe.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Bảng giá</h2>
+    <div class="plans">
+      <div class="plan"><div class="price">50.000đ</div><div class="name">1 tháng</div></div>
+      <div class="plan"><div class="price">100.000đ</div><div class="name">1 năm</div></div>
+      <div class="plan"><div class="price">300.000đ</div><div class="name">Vĩnh viễn</div></div>
+    </div>
+    <p class="note">Dùng thử miễn phí 7 ngày. Thanh toán chuyển khoản ngay trong ứng dụng, kích hoạt tự động. Mỗi tài khoản dùng trên 1 điện thoại.</p>
+  </section>
+
+  <section>
+    <h2>Hỗ trợ</h2>
+    <div class="support">
+      <a href="https://zalo.me/0969064672" target="_blank" rel="noopener">Nhóm hỗ trợ Zalo</a>
+      <a href="https://www.facebook.com/share/g/1A64SE6KYq/" target="_blank" rel="noopener">Nhóm hỗ trợ Facebook</a>
+    </div>
+  </section>
+
+  <footer>© TPlay Auto · tplay.io.vn</footer>
+</main>
+<script>
+  // Backup download on Google Drive: put its share link here; the button stays hidden while empty.
+  var DRIVE = "";
+
+  function driveDirect(url) {
+    var m = url.match(/\/d\/([\w-]+)/) || url.match(/[?&]id=([\w-]+)/);
+    return m ? "https://drive.google.com/uc?export=download&id=" + m[1] : url;
+  }
+  if (DRIVE) {
+    var d = document.getElementById("drive");
+    d.href = driveDirect(DRIVE);
+    d.hidden = false;
+  }
+
+  fetch("update.json", { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (u) {
+      if (!u || !u.apk) return;
+      document.getElementById("dl").href = u.apk;
+      document.getElementById("dl-text").textContent = "Tải TPlay Auto " + u.version;
+      var mb = u.size ? " · " + (u.size / 1048576).toFixed(0) + " MB" : "";
+      document.getElementById("meta").textContent =
+        "Phiên bản " + u.version + " · " + u.date + mb + " · Android 8.0 trở lên · Dùng thử 7 ngày";
+      if (u.notes && u.notes.length) {
+        var ul = document.getElementById("news");
+        u.notes.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+        document.getElementById("news-title").textContent = "Có gì mới trong bản " + u.version;
+        document.getElementById("news-box").hidden = false;
+      }
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+/update.json
+  Cache-Control: no-cache
+  Access-Control-Allow-Origin: *
+
+/admin/*
+  Cache-Control: no-cache
+  X-Robots-Tag: noindex
