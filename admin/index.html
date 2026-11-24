@@ -29,6 +29,10 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
   <section id="t-users" style="display:none">
     <div class="card"><div class="row"><input id="q" placeholder="Số điện thoại hoặc email khách" style="flex:3"><button onclick="find()" style="flex:0">Tìm</button></div></div>
     <div class="card" id="res" style="display:none"></div>
+    <div class="card"><div class="row" style="justify-content:space-between"><h2 style="flex:1">Danh sách khách hàng</h2><button class="sec" onclick="loadUsers()" style="flex:0">Làm mới</button></div>
+      <div class="tabs row" id="uf" style="margin-bottom:6px"><button class="on" data-f="all">Tất cả</button><button data-f="trial">Đang dùng thử</button><button data-f="paid">Đã mua, còn hạn</button><button data-f="lifetime">Vĩnh viễn</button><button data-f="expired">Hết hạn</button></div>
+      <input id="uq" placeholder="Lọc nhanh theo SĐT, email hoặc tên máy" oninput="renderUsers()">
+      <div id="ulist">Đang tải…</div></div>
   </section>
   <section id="t-logs" style="display:none">
     <div class="card"><div class="row"><input id="lq" placeholder="Mã nhật ký khách gửi (VD: SD5DUG) — để trống để xem mới nhất" style="flex:3"><button onclick="loadLogs()" style="flex:0">Tìm</button></div></div>
@@ -71,10 +75,39 @@ async function call(name,data){
   if(r.error) throw new Error(r.error.status==="PERMISSION_DENIED"?"Tài khoản này không có quyền quản trị":r.error.message);
   return r.result;
 }
-document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+let ulist=null, uf="all";
+function ustate(u){
+  const now=Date.now();
+  if(u.plan==="lifetime")return"lifetime";
+  if(!(u.expiresAt>now))return"expired";
+  return u.plan==="trial"?"trial":"paid";
+}
+const ustateVi={lifetime:["Vĩnh viễn","var(--ok)"],paid:["Còn hạn","var(--ok)"],trial:["Dùng thử","var(--amb)"],expired:["Hết hạn","var(--err)"]};
+async function loadUsers(){
+  $("ulist").textContent="Đang tải…";
+  try{ulist=(await call("adminUsers")).users;renderUsers()}catch(e){$("ulist").textContent=e.message}
+}
+function renderUsers(){
+  if(!ulist)return;
+  const q=$("uq").value.trim().toLowerCase();
+  const rows=ulist.filter(u=>(uf==="all"||ustate(u)===uf)&&(!q||(u.identifier+" "+u.deviceName).toLowerCase().includes(q)));
+  const count=s=>ulist.filter(u=>ustate(u)===s).length;
+  $("ulist").innerHTML=`<p class="mut">${rows.length} / ${ulist.length} tài khoản · dùng thử ${count("trial")} · còn hạn ${count("paid")} · vĩnh viễn ${count("lifetime")} · hết hạn ${count("expired")}${ulist.length>=1000?" · chỉ hiện 1000 tài khoản mới nhất":""}</p>
+  <div style="overflow-x:auto"><table><tr><th>Khách</th><th>Gói</th><th>Trạng thái</th><th>Hết hạn</th><th>Đã trả</th><th>Máy</th><th>Đăng ký</th></tr>
+  ${rows.map(u=>{const[s,c]=ustateVi[ustate(u)];return`<tr style="cursor:pointer" data-id="${esc(u.identifier)}" onclick="openUser(this.dataset.id)">
+   <td><b style="color:var(--pri)">${esc(u.identifier)||"—"}</b>${u.trialDenied?' <span class="mut" title="Máy này đã dùng thử ở tài khoản khác">(máy cũ)</span>':""}</td>
+   <td>${planVi[u.plan]||u.plan||"—"}</td><td style="color:${c}">${s}</td>
+   <td>${u.plan==="lifetime"?"—":(u.expiresAt?new Date(u.expiresAt).toLocaleDateString("vi-VN"):"—")}</td>
+   <td>${u.paid?vnd(u.paid):'<span class="mut">0</span>'}</td><td>${esc(u.deviceName)||"—"}</td>
+   <td>${u.createdAt?new Date(u.createdAt).toLocaleDateString("vi-VN"):"—"}</td></tr>`}).join("")}</table></div>`;
+}
+document.querySelectorAll("#uf button").forEach(b=>b.onclick=()=>{
+  uf=b.dataset.f;document.querySelectorAll("#uf button").forEach(x=>x.classList.toggle("on",x===b));renderUsers();
+});
+document.querySelectorAll(".tabs:not(#uf) button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs:not(#uf) button").forEach(x=>x.classList.toggle("on",x===b));
   ["stats","users","logs","promos","crashes"].forEach(t=>$("t-"+t).style.display=t===b.dataset.t?"":"none");
-  if(b.dataset.t==="stats")loadStats(); if(b.dataset.t==="promos")loadPromos(); if(b.dataset.t==="logs")loadLogs(); if(b.dataset.t==="crashes")loadCrashes();
+  if(b.dataset.t==="stats")loadStats(); if(b.dataset.t==="users"&&!ulist)loadUsers(); if(b.dataset.t==="promos")loadPromos(); if(b.dataset.t==="logs")loadLogs(); if(b.dataset.t==="crashes")loadCrashes();
 });
 async function loadStats(){
   try{const s=await call("adminStats");const max=Math.max(1,...s.last14.map(x=>x.amount));
@@ -131,7 +164,7 @@ async function loadLogs(){
   ${x.note?`<p>“${esc(x.note)}”</p>`:""}<details><summary class="mut" style="cursor:pointer">Xem nội dung nhật ký</summary><pre>${esc(x.text)}</pre></details></div>`).join(""):'<p class="mut">Không có nhật ký nào.</p>'}
   catch(e){$("logs").textContent=e.message}
 }
-function openUser(id){$("q").value=id;document.querySelector('[data-t=users]').click();find()}
+function openUser(id){$("q").value=id;document.querySelector("[data-t=users]").click();find();window.scrollTo(0,0)}
 async function loadCrashes(){
   try{const c=(await call("adminCrashes")).crashes;
   $("crashes").innerHTML=`<h2>Lỗi văng app gần đây</h2>${c.length?c.map(x=>`<p><b>${esc(x.app)}</b> · ${esc(x.device)} · Android ${esc(x.android)} · ${d(x.crashedAt||x.at)}</p><pre>${esc(x.trace)}</pre>`).join(""):'<p class="mut">Chưa có lỗi nào.</p>'}`}
