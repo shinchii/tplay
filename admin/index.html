@@ -15,7 +15,7 @@ button.sec{background:#26324a}button.dan{background:#9b2c2c}
 table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px;border-bottom:1px solid #2c3446;text-align:left;vertical-align:top}
 .bars{display:flex;align-items:flex-end;gap:4px;height:120px;margin-top:8px}.bars div{flex:1;background:var(--pri);border-radius:4px 4px 0 0;min-height:2px;position:relative}
 pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-height:300px;overflow:auto;font-size:12px}
-#msg{min-height:20px}
+#msg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);max-width:92%;margin:0;padding:10px 16px;border-radius:12px;background:#151c2c;box-shadow:0 6px 24px rgba(0,0,0,.5);font-size:14px}#msg:empty{display:none}
 </style></head><body><main>
 <h1>TPlay Auto · Quản trị</h1>
 <div class="card" id="login">
@@ -54,7 +54,7 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
 const KEY="AIzaSyBFXjImyZgFzyl8ITTIzAwaox2ak4t9bNc", FN="https://asia-southeast1-trungplay-12c60.cloudfunctions.net/";
 let tok=null, cur=null;
 const $=id=>document.getElementById(id), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const msg=(t,e)=>{$("msg").textContent=t||"";$("msg").style.color=e?"var(--err)":"var(--ok)"};
+let msgT;const msg=(t,e)=>{$("msg").textContent=t||"";$("msg").style.color=e?"var(--err)":"var(--ok)";clearTimeout(msgT);if(t)msgT=setTimeout(()=>$("msg").textContent="",8000)};
 const vnd=n=>(n||0).toLocaleString("vi-VN")+" đ", d=ms=>ms?new Date(ms).toLocaleString("vi-VN"):"—";
 const planVi={trial:"Dùng thử",month:"1 tháng",year:"1 năm",lifetime:"Vĩnh viễn"};
 async function login(){
@@ -143,7 +143,7 @@ function show(r){
 }
 async function act(action,value){
   if(action==="setPlan"&&value==="expired"&&!confirm("Cho tài khoản này hết hạn ngay?"))return;
-  try{await call("adminAction",{uid:cur.uid,action,value});msg("Đã cập nhật");$("q").value=cur.identifier;find()}catch(e){msg(e.message,1)}
+  try{await call("adminAction",{uid:cur.uid,action,value});$("q").value=cur.identifier;await find();if(ulist)loadUsers();msg(action==="setPlan"&&value==="expired"?"Đã cho hết hạn. App của khách sẽ khoá trong vòng 10 phút.":"Đã cập nhật")}catch(e){msg(e.message,1)}
 }
 function renderPromos(list){
   $("promos").innerHTML=`<h2>Mã đang có</h2><table><tr><th>Mã</th><th>Giảm</th><th>Tặng</th><th>Đã dùng</th><th>Hết hạn</th><th>Gói</th><th></th></tr>
