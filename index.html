@@ -46,6 +46,16 @@
   .note { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
   .support { display: flex; gap: 10px; flex-wrap: wrap; }
   .support a { flex: 1 1 200px; text-align: center; padding: 12px; border-radius: 12px; border: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 600; }
+  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -4px; scrollbar-width: none; }
+  .shots::-webkit-scrollbar { display: none; }
+  .shot { flex: 0 0 88%; scroll-snap-align: center; margin: 0 4px; }
+  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; border-radius: 12px; border: 1px solid var(--line); cursor: zoom-in; background: #000; }
+  .shot figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; text-align: center; }
+  .shot-nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+  .shot-nav button { width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 0; background: var(--line); cursor: pointer; }
+  .shot-nav button.on { background: var(--pri); width: 22px; border-radius: 4px; }
+  #zoom { position: fixed; inset: 0; background: rgba(0, 0, 0, .92); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10; cursor: zoom-out; }
+  #zoom img { max-width: 100%; max-height: 100%; border-radius: 10px; }
   footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
   @media (max-width: 480px) { h1 { font-size: 28px; } }
 </style>
@@ -63,6 +73,19 @@
     <a id="drive" class="btn alt" href="#" hidden>Tải dự phòng (Google Drive)</a>
     <p class="meta" id="meta">Android 8.0 trở lên · Dùng thử miễn phí 7 ngày</p>
   </header>
+
+  <section>
+    <h2>Hình ảnh trên xe</h2>
+    <div class="shots" id="shots">
+      <figure class="shot"><img src="img/xe-1.webp" width="1600" height="900" alt="Google Maps và YouTube cùng lúc trên màn hình xe"><figcaption>Google Maps và YouTube cùng lúc trên màn hình xe</figcaption></figure>
+      <figure class="shot"><img src="img/xe-2.webp" width="1600" height="900" loading="lazy" alt="Vừa xem bản đồ vừa xem video"><figcaption>Vừa xem bản đồ vừa xem video, chia đôi màn hình</figcaption></figure>
+      <figure class="shot"><img src="img/xe-3.webp" width="1600" height="894" loading="lazy" alt="Chia 4 ứng dụng trên màn hình xe"><figcaption>Chia 4 ứng dụng trên màn hình xe</figcaption></figure>
+      <figure class="shot"><img src="img/xe-4.webp" width="1600" height="901" loading="lazy" alt="Chia 4 màn hình và mở mọi ứng dụng"><figcaption>Chia 4 màn hình, mở được mọi ứng dụng trong điện thoại</figcaption></figure>
+      <figure class="shot"><img src="img/xe-5.webp" width="1600" height="452" loading="lazy" alt="Mọi ứng dụng của điện thoại trên màn xe"><figcaption>Mọi ứng dụng của điện thoại ngay trên màn xe</figcaption></figure>
+      <figure class="shot"><img src="img/xe-6.webp" width="1600" height="900" loading="lazy" alt="Chỉ đường trong khi xem video"><figcaption>Chỉ đường trong khi xem video</figcaption></figure>
+    </div>
+    <div class="shot-nav" id="shot-nav"></div>
+  </section>
 
   <section id="news-box" hidden>
     <h2 id="news-title">Có gì mới</h2>
@@ -125,6 +148,31 @@
     d.href = driveDirect(DRIVE);
     d.hidden = false;
   }
+
+  // Screenshot gallery: dots follow the scroll; tap a picture to see it full screen.
+  (function () {
+    var box = document.getElementById("shots"), nav = document.getElementById("shot-nav");
+    var shots = box.querySelectorAll(".shot");
+    shots.forEach(function (s, i) {
+      var b = document.createElement("button");
+      b.setAttribute("aria-label", "Ảnh " + (i + 1));
+      b.onclick = function () { box.scrollTo({ left: s.offsetLeft - box.offsetLeft - 4, behavior: "smooth" }); };
+      nav.appendChild(b);
+      s.querySelector("img").onclick = function () {
+        var z = document.createElement("div"); z.id = "zoom";
+        var im = document.createElement("img"); im.src = this.src; im.alt = this.alt;
+        z.appendChild(im); z.onclick = function () { z.remove(); };
+        document.body.appendChild(z);
+      };
+    });
+    function mark() {
+      var mid = box.scrollLeft + box.clientWidth / 2, best = 0, d = 1e9;
+      shots.forEach(function (s, i) { var c = s.offsetLeft - box.offsetLeft + s.offsetWidth / 2, k = Math.abs(c - mid); if (k < d) { d = k; best = i; } });
+      nav.querySelectorAll("button").forEach(function (b, i) { b.className = i === best ? "on" : ""; });
+    }
+    box.addEventListener("scroll", mark, { passive: true }); mark();
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var z = document.getElementById("zoom"); if (z) z.remove(); } });
+  })();
 
   fetch("update.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
