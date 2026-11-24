@@ -17,7 +17,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px;borde
 pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-height:300px;overflow:auto;font-size:12px}
 #msg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);max-width:92%;margin:0;padding:10px 16px;border-radius:12px;background:#151c2c;box-shadow:0 6px 24px rgba(0,0,0,.5);font-size:14px}#msg:empty{display:none}
 </style></head><body><main>
-<h1>TPlay Auto · Quản trị</h1>
+<h1>TPlay Auto · Quản trị <button class="sec" id="out" onclick="logout()" style="display:none;float:right;width:auto;font-size:13px;padding:6px 12px">Đăng xuất</button></h1>
 <div class="card" id="login">
   <p class="mut">Đăng nhập bằng tài khoản quản trị (email + mật khẩu đã đăng ký trong TPlay Auto).</p>
   <input id="em" placeholder="Email quản trị" autocomplete="username"><input id="pw" type="password" placeholder="Mật khẩu" autocomplete="current-password">
@@ -65,7 +65,22 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
 </main>
 <script>
 const KEY="AIzaSyBFXjImyZgFzyl8ITTIzAwaox2ak4t9bNc", FN="https://asia-southeast1-trungplay-12c60.cloudfunctions.net/";
-let tok=null, cur=null;
+let tok=null, tokExp=0, cur=null;
+// Stay signed in: Firebase ID tokens last 1 hour, so keep the refresh token in this browser and renew quietly.
+const RT="tplay_admin_rt", ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
+const claimsOf=t=>JSON.parse(decodeURIComponent(escape(atob(t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")))));
+function setTok(id,refresh){tok=id;tokExp=claimsOf(id).exp*1000;if(refresh)ls.set(RT,refresh)}
+async function renew(){
+  const rt=ls.get(RT); if(!rt) return false;
+  const r=await fetch("https://securetoken.googleapis.com/v1/token?key="+KEY,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(rt)}).then(r=>r.json()).catch(()=>null);
+  if(!r) return !!tok; // offline: keep what we have
+  if(r.error||!r.id_token){ls.set(RT,null);return false}
+  setTok(r.id_token,r.refresh_token);return true;
+}
+function showApp(){$("out").style.display="";$("login").style.display="none";$("app").style.display="";msg("");loadStats()}
+function logout(){ls.set(RT,null);tok=null;$("out").style.display="none";$("app").style.display="none";$("login").style.display=""}
+(async()=>{if(ls.get(RT)&&await renew()&&claimsOf(tok).email_verified)showApp()})();
 const $=id=>document.getElementById(id), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let msgT;const msg=(t,e)=>{$("msg").textContent=t||"";$("msg").style.color=e?"var(--err)":"var(--ok)";clearTimeout(msgT);if(t)msgT=setTimeout(()=>$("msg").textContent="",8000)};
 const vnd=n=>(n||0).toLocaleString("vi-VN")+" đ", d=ms=>ms?new Date(ms).toLocaleString("vi-VN"):"—";
@@ -74,16 +89,17 @@ async function login(){
   const r=await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({email:$("em").value.trim(),password:$("pw").value,returnSecureToken:true})}).then(r=>r.json());
   if(r.error){msg("Sai email hoặc mật khẩu",1);return}
-  tok=r.idToken;
+  setTok(r.idToken);
   // Admins need a verified email: the first time, a link is sent to it.
-  const claims=JSON.parse(atob(tok.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
+  const claims=claimsOf(tok);
   if(!claims.email_verified){
     await fetch("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"VERIFY_EMAIL",idToken:tok})});
     msg("Lần đầu: đã gửi email xác minh tới "+claims.email+". Bấm link trong email (xem cả mục Spam), rồi đăng nhập lại.",1);return;
   }
-  $("login").style.display="none";$("app").style.display="";msg("");loadStats();
+  ls.set(RT,r.refreshToken);showApp();
 }
 async function call(name,data){
+  if(!tok||Date.now()>tokExp-5*60*1000){if(!await renew()){logout();throw new Error("Phiên đăng nhập đã hết, vui lòng đăng nhập lại")}}
   const r=await fetch(FN+name,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+tok},body:JSON.stringify({data:data||{}})}).then(r=>r.json());
   if(r.error) throw new Error(r.error.status==="PERMISSION_DENIED"?"Tài khoản này không có quyền quản trị":r.error.message);
   return r.result;
