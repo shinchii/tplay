@@ -230,7 +230,7 @@ async function loadDrives(){
    <h2>Các sự cố</h2>${Object.keys(probs).length?Object.entries(probs).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<p>${esc(probVi[k]||k)}: <b>${v}</b> lần</p>`).join(""):'<p class="mut">Không có sự cố nào.</p>'}
    <h2>Âm thanh lên xe bằng</h2>${Object.entries(audio).map(([k,v])=>`<p>${esc(k)}: <b>${v}</b> chuyến</p>`).join("")||'<p class="mut">—</p>'}
    ${table(merge("phones"),"Theo dòng điện thoại")}${table(merge("cars"),"Theo xe / đầu đĩa")}
-   <h2>Chuyến có sự cố gần đây</h2>${(r.bad||[]).length?r.bad.map(x=>`<p><b>${esc(x.phone)}</b> · ${esc(x.car)} · ${d(x.at)} · ${Math.round(x.durS/60)} phút · TPlay ${esc(x.app)}<br><span class="mut">${(x.problems||[]).map(p=>esc(probVi[p]||p)).join(", ")||"—"} · âm thanh: ${esc(x.audio||"—")}</span></p>`).join(""):'<p class="mut">Chưa có.</p>'}
+   <h2>Chuyến có sự cố gần đây</h2>${(r.bad||[]).length?r.bad.map(x=>`<p><b>${esc(x.phone)}</b> · ${esc(x.car)} · ${d(x.at)} · ${Math.round(x.durS/60)} phút · TPlay ${esc(x.app)}<br><span class="mut">${(x.problems||[]).map(p=>esc(probVi[p]||p)).join(", ")||"—"} · âm thanh: ${esc(x.audio||"—")}${x.err?`<br>Lỗi cầu nối: <code>${esc(x.err)}</code>`:""}</span></p>`).join(""):'<p class="mut">Chưa có.</p>'}
    <p class="mut">Báo cáo do app gửi sau mỗi chuyến (từ bản 1.5.3), không có vị trí hay thông tin cá nhân, tự xoá sau 30 ngày.</p>`}
   catch(e){$("drives").textContent=e.message}
 }
