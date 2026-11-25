@@ -168,7 +168,7 @@ function show(r){
   <button class="dan" onclick="act('setPlan','expired')">Cho hết hạn</button></div>
   <div class="row" style="margin-top:8px"><input id="np" placeholder="Mật khẩu mới (≥ 6 ký tự)" style="flex:3"><button style="flex:0;white-space:nowrap" onclick="act('resetPassword',$('np').value)">Đặt lại mật khẩu</button></div>
   <h3>Đơn hàng</h3><table><tr><th>Mã</th><th>Gói</th><th>Số tiền</th><th>KM</th><th>Trạng thái</th><th>Ngày</th></tr>
-  ${(r.orders||[]).map(o=>`<tr><td>${o.code}</td><td>${planVi[o.plan]||o.plan}</td><td>${vnd(o.amount)}</td><td>${esc(o.promo||"")}</td><td>${o.status}</td><td>${d(o.createdAt)}</td></tr>`).join("")}</table>
+  ${(r.orders||[]).map(o=>`<tr><td>${o.code}</td><td>${planVi[o.plan]||o.plan}</td><td>${o.currency==="USD"?`US$${o.usd} <span class="mut">PayPal</span>`:vnd(o.amount)}</td><td>${esc(o.promo||"")}</td><td>${o.status}</td><td>${d(o.createdAt)}</td></tr>`).join("")}</table>
   <h3>Nhật ký khách gửi</h3>${(r.logs||[]).length?r.logs.map(l=>`<p><b>${l.id}</b> · ${d(l.at)} · ${esc(l.app)} · ${esc(l.device)}<br>${esc(l.note)}</p><pre>${esc(l.text)}</pre>`).join(""):'<p class="mut">Chưa có.</p>'}`;
 }
 async function act(action,value){

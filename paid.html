@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TPlay Auto</title>
+<link rel="icon" href="favicon.png">
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --line: #262d36; --text: #e8edf2; --muted: #9aa5b1; --ok: #3fb950; --warn: #ffb300; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); color: var(--text);
+         font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 16px; }
+  .card { max-width: 440px; width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px 22px; text-align: center; }
+  img { width: 72px; height: 72px; border-radius: 18px; }
+  h1 { font-size: 22px; margin: 14px 0 8px; }
+  p { color: var(--muted); margin: 6px 0; }
+  .ok { color: var(--ok); } .warn { color: var(--warn); }
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="logo.png" alt="TPlay Auto">
+  <h1 id="t"></h1>
+  <p id="m"></p>
+  <p id="m2"></p>
+</div>
+<script>
+  // Where PayPal sends the customer back after paying (or cancelling): the app activates the plan itself.
+  var q = new URLSearchParams(location.search), cancel = q.has("cancel");
+  var en = !/^vi/i.test((navigator.languages && navigator.languages[0]) || navigator.language || "vi");
+  try { var s = localStorage.getItem("tplay_lang"); if (s) en = s === "en"; } catch (e) {}
+  document.documentElement.lang = en ? "en" : "vi";
+  var t = document.getElementById("t"), m = document.getElementById("m"), m2 = document.getElementById("m2");
+  if (cancel) {
+    t.className = "warn";
+    t.textContent = en ? "Payment cancelled" : "Đã huỷ thanh toán";
+    m.textContent = en ? "Nothing was charged. Go back to TPlay Auto to try again." : "Bạn chưa bị trừ tiền. Quay lại TPlay Auto để thử lại.";
+  } else {
+    t.className = "ok";
+    t.textContent = en ? "Payment received" : "Đã nhận thanh toán";
+    m.textContent = en ? "Go back to the TPlay Auto app: your plan activates within a few seconds." : "Quay lại ứng dụng TPlay Auto: gói sẽ được kích hoạt trong vài giây.";
+    m2.textContent = en ? "You can close this page." : "Bạn có thể đóng trang này.";
+  }
+</script>
+</body>
+</html>
