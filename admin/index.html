@@ -24,7 +24,7 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
   <button onclick="login()">Đăng nhập</button>
 </div>
 <div id="app" style="display:none">
-  <div class="tabs row" style="margin-bottom:12px"><button class="on" data-t="stats">Thống kê</button><button data-t="users">Khách hàng</button><button data-t="logs">Nhật ký</button><button data-t="promos">Mã khuyến mãi</button><button data-t="crashes">Lỗi app</button><button data-t="push">Gửi thông báo</button></div>
+  <div class="tabs row" style="margin-bottom:12px"><button class="on" data-t="stats">Thống kê</button><button data-t="users">Khách hàng</button><button data-t="logs">Nhật ký</button><button data-t="promos">Mã khuyến mãi</button><button data-t="crashes">Lỗi app</button><button data-t="drives">Thống kê lỗi</button><button data-t="push">Gửi thông báo</button></div>
   <section id="t-stats"><div class="card" id="stats">Đang tải…</div></section>
   <section id="t-users" style="display:none">
     <div class="card"><div class="row"><input id="q" placeholder="Số điện thoại hoặc email khách" style="flex:3"><button onclick="find()" style="flex:0">Tìm</button></div></div>
@@ -46,6 +46,7 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
       <button onclick="savePromo()">Lưu mã</button></div>
     <div class="card" id="promos">Đang tải…</div>
   </section>
+  <section id="t-drives" style="display:none"><div class="card" id="drives">Đang tải…</div></section>
   <section id="t-crashes" style="display:none"><div class="card" id="crashes">Đang tải…</div></section>
   <section id="t-push" style="display:none"><div class="card"><h2>Gửi thông báo đến điện thoại khách</h2>
     <p class="mut">Khách nhận ngay trên thanh thông báo, kể cả khi không mở app. Chỉ máy cài TPlay Auto 1.4.8 trở lên và có dịch vụ Google Play mới nhận được.</p>
@@ -135,8 +136,8 @@ document.querySelectorAll("#uf button").forEach(b=>b.onclick=()=>{
 });
 document.querySelectorAll(".tabs:not(#uf) button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll(".tabs:not(#uf) button").forEach(x=>x.classList.toggle("on",x===b));
-  ["stats","users","logs","promos","crashes","push"].forEach(t=>$("t-"+t).style.display=t===b.dataset.t?"":"none");
-  if(b.dataset.t==="stats")loadStats(); if(b.dataset.t==="users"&&!ulist)loadUsers(); if(b.dataset.t==="promos")loadPromos(); if(b.dataset.t==="logs")loadLogs(); if(b.dataset.t==="crashes")loadCrashes();
+  ["stats","users","logs","promos","crashes","drives","push"].forEach(t=>$("t-"+t).style.display=t===b.dataset.t?"":"none");
+  if(b.dataset.t==="stats")loadStats(); if(b.dataset.t==="users"&&!ulist)loadUsers(); if(b.dataset.t==="promos")loadPromos(); if(b.dataset.t==="logs")loadLogs(); if(b.dataset.t==="crashes")loadCrashes(); if(b.dataset.t==="drives")loadDrives();
 });
 async function loadStats(){
   try{const s=await call("adminStats");const max=Math.max(1,...s.last14.map(x=>x.amount));
@@ -213,5 +214,24 @@ async function loadCrashes(){
   try{const c=(await call("adminCrashes")).crashes;
   $("crashes").innerHTML=`<h2>Lỗi văng app gần đây</h2>${c.length?c.map(x=>`<p><b>${esc(x.app)}</b> · ${esc(x.device)} · Android ${esc(x.android)} · ${d(x.crashedAt||x.at)}</p><pre>${esc(x.trace)}</pre>`).join(""):'<p class="mut">Chưa có lỗi nào.</p>'}`}
   catch(e){$("crashes").textContent=e.message}
+}
+const probVi={sound_on_phone:"Tiếng ra loa điện thoại (không tự hồi phục)",no_sound_method:"Không có cách đưa tiếng lên xe",cert_refused:"Xe từ chối chứng chỉ",bridge_lost:"Cầu nối bị đứt",bridge_back:"Cầu nối tự bật lại được",apps_lost:"App trên màn xe bị đứng",apps_back:"App trên màn xe tự mở lại được"};
+async function loadDrives(){
+  try{const r=await call("adminDriveStats");const days=r.days||[];
+  const sum=(k)=>days.reduce((a,x)=>a+(x[k]||0),0), drives=sum("drives"), bad=sum("bad");
+  const merge=(k)=>{const m={};days.forEach(x=>Object.entries(x[k]||{}).forEach(([n,v])=>{if(typeof v==="object"){m[n]=m[n]||{drives:0,bad:0};m[n].drives+=v.drives||0;m[n].bad+=v.bad||0}else m[n]=(m[n]||0)+v}));return m};
+  const pct=(a,b)=>b?Math.round(a*100/b)+"%":"—";
+  const table=(m,title)=>{const rows=Object.entries(m).sort((a,b)=>b[1].bad-a[1].bad||b[1].drives-a[1].drives).slice(0,15);
+    return `<h2>${title}</h2>${rows.length?`<table><tr><th>Tên</th><th>Chuyến</th><th>Lỗi</th><th>Tỉ lệ lỗi</th></tr>${rows.map(([n,v])=>`<tr><td>${esc(n)}</td><td>${v.drives}</td><td>${v.bad}</td><td style="color:${v.bad?"var(--err)":"var(--ok)"}">${pct(v.bad,v.drives)}</td></tr>`).join("")}</table>`:'<p class="mut">Chưa có dữ liệu.</p>'}`};
+  const probs=merge("problems"), audio=merge("audio");
+  $("drives").innerHTML=`<h2>14 ngày qua</h2><div class="kpis">
+   <div class="kpi"><span class="mut">Số chuyến đi</span><b>${drives}</b></div>
+   <div class="kpi"><span class="mut">Chuyến có lỗi</span><b style="color:${bad?"var(--err)":"var(--ok)"}">${bad} (${pct(bad,drives)})</b></div></div>
+   <h2>Các sự cố</h2>${Object.keys(probs).length?Object.entries(probs).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<p>${esc(probVi[k]||k)}: <b>${v}</b> lần</p>`).join(""):'<p class="mut">Không có sự cố nào.</p>'}
+   <h2>Âm thanh lên xe bằng</h2>${Object.entries(audio).map(([k,v])=>`<p>${esc(k)}: <b>${v}</b> chuyến</p>`).join("")||'<p class="mut">—</p>'}
+   ${table(merge("phones"),"Theo dòng điện thoại")}${table(merge("cars"),"Theo xe / đầu đĩa")}
+   <h2>Chuyến có sự cố gần đây</h2>${(r.bad||[]).length?r.bad.map(x=>`<p><b>${esc(x.phone)}</b> · ${esc(x.car)} · ${d(x.at)} · ${Math.round(x.durS/60)} phút · TPlay ${esc(x.app)}<br><span class="mut">${(x.problems||[]).map(p=>esc(probVi[p]||p)).join(", ")||"—"} · âm thanh: ${esc(x.audio||"—")}</span></p>`).join(""):'<p class="mut">Chưa có.</p>'}
+   <p class="mut">Báo cáo do app gửi sau mỗi chuyến (từ bản 1.5.3), không có vị trí hay thông tin cá nhân, tự xoá sau 30 ngày.</p>`}
+  catch(e){$("drives").textContent=e.message}
 }
 </script></body></html>
