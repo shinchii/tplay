@@ -54,6 +54,9 @@
   .shot-nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
   .shot-nav button { width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 0; background: var(--line); cursor: pointer; }
   .shot-nav button.on { background: var(--pri); width: 22px; border-radius: 4px; }
+  /* Phone screenshots: narrower tiles, in a rounded phone-like frame. */
+  .shot.phone { flex: 0 0 46%; max-width: 230px; }
+  .shot.phone img { aspect-ratio: 9 / 20; object-fit: cover; border-radius: 22px; border: 3px solid #2a313b; }
   #zoom { position: fixed; inset: 0; background: rgba(0, 0, 0, .92); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10; cursor: zoom-out; }
   #zoom img { max-width: 100%; max-height: 100%; border-radius: 10px; }
   .lang { position: absolute; top: 14px; right: 16px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: 600 13px/1 system-ui, sans-serif; cursor: pointer; }
@@ -89,6 +92,19 @@
       <figure class="shot"><img src="img/xe-6.webp" width="1600" height="900" loading="lazy" alt="Chỉ đường trong khi xem video"><figcaption data-en="Directions while a video plays">Chỉ đường trong khi xem video</figcaption></figure>
     </div>
     <div class="shot-nav" id="shot-nav"></div>
+  </section>
+
+  <section>
+    <h2 data-en="The app">Giao diện ứng dụng</h2>
+    <div class="shots" id="app-shots">
+      <figure class="shot phone"><img src="img/app-1.webp" width="720" height="1600" alt="Trang chủ: trạng thái kết nối xe"><figcaption data-en="Home: the car connection at a glance">Trang chủ: trạng thái kết nối xe</figcaption></figure>
+      <figure class="shot phone"><img src="img/app-2.webp" width="720" height="1600" loading="lazy" alt="Kiểm tra kỹ trước khi ra xe: thử thật cầu nối, âm thanh, chứng chỉ"><figcaption data-en="Full check before driving: bridge, sound and certificate really tested">Kiểm tra kỹ trước khi ra xe: thử thật cầu nối, âm thanh, chứng chỉ</figcaption></figure>
+      <figure class="shot phone"><img src="img/app-3.webp" width="720" height="1600" loading="lazy" alt="Tùy chỉnh mọi thứ trên màn hình xe"><figcaption data-en="Everything on the car screen, your way">Tùy chỉnh mọi thứ trên màn hình xe</figcaption></figure>
+      <figure class="shot phone"><img src="img/app-4.webp" width="720" height="1600" loading="lazy" alt="Chọn bố cục 1 đến 4 ô trên màn xe"><figcaption data-en="Choose 1 to 4 tiles on the car screen">Chọn bố cục 1 đến 4 ô trên màn xe</figcaption></figure>
+      <figure class="shot phone"><img src="img/app-5.webp" width="720" height="1600" loading="lazy" alt="Màu sắc, hình nền và video nền"><figcaption data-en="Colours, wallpaper and video backgrounds">Màu sắc, hình nền và video nền</figcaption></figure>
+      <figure class="shot phone"><img src="img/app-6.webp" width="720" height="1600" loading="lazy" alt="Mua gói ngay trong ứng dụng"><figcaption data-en="Buy a plan right in the app">Mua gói ngay trong ứng dụng</figcaption></figure>
+    </div>
+    <div class="shot-nav" id="app-shot-nav"></div>
   </section>
 
   <section id="news-box" hidden>
@@ -153,9 +169,10 @@
     d.hidden = false;
   }
 
-  // Screenshot gallery: dots follow the scroll; tap a picture to see it full screen.
-  (function () {
-    var box = document.getElementById("shots"), nav = document.getElementById("shot-nav");
+  // Screenshot galleries: dots follow the scroll; tap a picture to see it full screen.
+  [["shots", "shot-nav"], ["app-shots", "app-shot-nav"]].forEach(function (ids) {
+    var box = document.getElementById(ids[0]), nav = document.getElementById(ids[1]);
+    if (!box) return;
     var shots = box.querySelectorAll(".shot");
     shots.forEach(function (s, i) {
       var b = document.createElement("button");
@@ -175,8 +192,8 @@
       nav.querySelectorAll("button").forEach(function (b, i) { b.className = i === best ? "on" : ""; });
     }
     box.addEventListener("scroll", mark, { passive: true }); mark();
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var z = document.getElementById("zoom"); if (z) z.remove(); } });
-  })();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var z = document.getElementById("zoom"); if (z) z.remove(); } });
 
   // Language: Vietnamese for phones and browsers set to Vietnamese, English for everyone else;
   // the VI / EN button switches and is remembered.
