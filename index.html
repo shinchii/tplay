@@ -56,33 +56,37 @@
   .shot-nav button.on { background: var(--pri); width: 22px; border-radius: 4px; }
   #zoom { position: fixed; inset: 0; background: rgba(0, 0, 0, .92); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10; cursor: zoom-out; }
   #zoom img { max-width: 100%; max-height: 100%; border-radius: 10px; }
+  .lang { position: absolute; top: 14px; right: 16px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: 600 13px/1 system-ui, sans-serif; cursor: pointer; }
+  main { position: relative; }
+  html[lang="en"] .vi-only { display: none !important; }
   footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
   @media (max-width: 480px) { h1 { font-size: 28px; } }
 </style>
 </head>
 <body>
 <main>
+  <button id="lang" class="lang" type="button" aria-label="Language">EN</button>
   <header>
     <img src="logo.png" alt="TPlay Auto">
     <h1>TPlay Auto</h1>
-    <p class="lead">Đưa ứng dụng trên điện thoại Android lên màn hình ô tô: Google Maps, Vietmap, YouTube, nhạc, chia màn hình nhiều ứng dụng, điều khiển bằng giọng nói tiếng Việt.</p>
+    <p class="lead" data-en="Put your Android phone&#x27;s apps on your car&#x27;s screen: Google Maps, Waze, YouTube, music, several apps side by side, for cars with Android Auto.">Đưa ứng dụng trên điện thoại Android lên màn hình ô tô: Google Maps, Vietmap, YouTube, nhạc, chia màn hình nhiều ứng dụng, điều khiển bằng giọng nói tiếng Việt.</p>
     <a id="dl" class="btn main" href="https://github.com/shinchii/tplay/releases/latest">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
-      <span id="dl-text">Tải TPlay Auto</span>
+      <span id="dl-text" data-en="Download TPlay Auto">Tải TPlay Auto</span>
     </a>
-    <a id="drive" class="btn alt" href="#" hidden>Tải dự phòng (Google Drive)</a>
-    <p class="meta" id="meta">Android 8.0 trở lên · Dùng thử miễn phí 7 ngày</p>
+    <a id="drive" class="btn alt" href="#" hidden data-en="Backup download (Google Drive)">Tải dự phòng (Google Drive)</a>
+    <p class="meta" id="meta" data-en="Android 8.0 or newer · 7-day free trial">Android 8.0 trở lên · Dùng thử miễn phí 7 ngày</p>
   </header>
 
   <section>
-    <h2>Hình ảnh trên xe</h2>
+    <h2 data-en="In the car">Hình ảnh trên xe</h2>
     <div class="shots" id="shots">
-      <figure class="shot"><img src="img/xe-4.webp" width="1600" height="901" alt="Chia 4 màn hình và mở mọi ứng dụng"><figcaption>Chia 4 màn hình, mở được mọi ứng dụng trong điện thoại</figcaption></figure>
-      <figure class="shot"><img src="img/xe-1.webp" width="1600" height="900" loading="lazy" alt="Google Maps và YouTube cùng lúc trên màn hình xe"><figcaption>Google Maps và YouTube cùng lúc trên màn hình xe</figcaption></figure>
-      <figure class="shot"><img src="img/xe-2.webp" width="1600" height="900" loading="lazy" alt="Vừa xem bản đồ vừa xem video"><figcaption>Vừa xem bản đồ vừa xem video, chia đôi màn hình</figcaption></figure>
-      <figure class="shot"><img src="img/xe-3.webp" width="1600" height="894" loading="lazy" alt="Chia 4 ứng dụng trên màn hình xe"><figcaption>Chia 4 ứng dụng trên màn hình xe</figcaption></figure>
-      <figure class="shot"><img src="img/xe-5.webp" width="1600" height="452" loading="lazy" alt="Mọi ứng dụng của điện thoại trên màn xe"><figcaption>Mọi ứng dụng của điện thoại ngay trên màn xe</figcaption></figure>
-      <figure class="shot"><img src="img/xe-6.webp" width="1600" height="900" loading="lazy" alt="Chỉ đường trong khi xem video"><figcaption>Chỉ đường trong khi xem video</figcaption></figure>
+      <figure class="shot"><img src="img/xe-4.webp" width="1600" height="901" alt="Chia 4 màn hình và mở mọi ứng dụng"><figcaption data-en="Four apps at once, and every app of your phone">Chia 4 màn hình, mở được mọi ứng dụng trong điện thoại</figcaption></figure>
+      <figure class="shot"><img src="img/xe-1.webp" width="1600" height="900" loading="lazy" alt="Google Maps và YouTube cùng lúc trên màn hình xe"><figcaption data-en="Google Maps and YouTube together on the car screen">Google Maps và YouTube cùng lúc trên màn hình xe</figcaption></figure>
+      <figure class="shot"><img src="img/xe-2.webp" width="1600" height="900" loading="lazy" alt="Vừa xem bản đồ vừa xem video"><figcaption data-en="The map and a video side by side">Vừa xem bản đồ vừa xem video, chia đôi màn hình</figcaption></figure>
+      <figure class="shot"><img src="img/xe-3.webp" width="1600" height="894" loading="lazy" alt="Chia 4 ứng dụng trên màn hình xe"><figcaption data-en="Four apps on the car screen">Chia 4 ứng dụng trên màn hình xe</figcaption></figure>
+      <figure class="shot"><img src="img/xe-5.webp" width="1600" height="452" loading="lazy" alt="Mọi ứng dụng của điện thoại trên màn xe"><figcaption data-en="All your phone&#x27;s apps on the car screen">Mọi ứng dụng của điện thoại ngay trên màn xe</figcaption></figure>
+      <figure class="shot"><img src="img/xe-6.webp" width="1600" height="900" loading="lazy" alt="Chỉ đường trong khi xem video"><figcaption data-en="Directions while a video plays">Chỉ đường trong khi xem video</figcaption></figure>
     </div>
     <div class="shot-nav" id="shot-nav"></div>
   </section>
@@ -93,47 +97,47 @@
   </section>
 
   <section>
-    <h2>Cài đặt</h2>
+    <h2 data-en="Install">Cài đặt</h2>
     <ol class="steps">
-      <li>Bấm <b>Tải TPlay Auto</b> ở trên, đợi tải xong file <b>.apk</b>.</li>
-      <li>Mở file vừa tải. Nếu điện thoại hỏi, cho phép <b>cài ứng dụng không rõ nguồn gốc</b> (cho Chrome hoặc ứng dụng Tệp).</li>
-      <li>Nếu Google Play Protect cảnh báo, bấm <b>Thêm chi tiết → Vẫn cài đặt</b>. TPlay Auto không có trên CH Play nên Android cảnh báo như vậy.</li>
-      <li>Mở TPlay Auto, đăng ký bằng <b>email hoặc số điện thoại</b>. Bạn được dùng thử 7 ngày, không cần thẻ.</li>
-      <li>Cắm cáp USB vào xe. <b>Lần đầu</b>, app tự thiết lập chứng chỉ: rút cáp ra và cắm lại là dùng được.</li>
-      <li>Nếu Android hỏi "Mở bằng ứng dụng nào", chọn <b>TPlay Auto</b> và tích <b>Luôn dùng</b>, để lần sau vào thẳng.</li>
+      <li data-en="Tap &lt;b&gt;Download TPlay Auto&lt;/b&gt; above and wait for the &lt;b&gt;.apk&lt;/b&gt; file.">Bấm <b>Tải TPlay Auto</b> ở trên, đợi tải xong file <b>.apk</b>.</li>
+      <li data-en="Open it. If asked, allow &lt;b&gt;installing unknown apps&lt;/b&gt; (for Chrome or your Files app).">Mở file vừa tải. Nếu điện thoại hỏi, cho phép <b>cài ứng dụng không rõ nguồn gốc</b> (cho Chrome hoặc ứng dụng Tệp).</li>
+      <li data-en="If Google Play Protect warns you, tap &lt;b&gt;More details → Install anyway&lt;/b&gt;: TPlay Auto isn&#x27;t on the Play Store, so Android always warns.">Nếu Google Play Protect cảnh báo, bấm <b>Thêm chi tiết → Vẫn cài đặt</b>. TPlay Auto không có trên CH Play nên Android cảnh báo như vậy.</li>
+      <li data-en="Open TPlay Auto, tap &lt;b&gt;Switch to English&lt;/b&gt;, and sign up with your &lt;b&gt;email&lt;/b&gt;. 7 days free, no card needed.">Mở TPlay Auto, đăng ký bằng <b>email hoặc số điện thoại</b>. Bạn được dùng thử 7 ngày, không cần thẻ.</li>
+      <li data-en="Plug the USB cable into the car. &lt;b&gt;The first time&lt;/b&gt;, the app sets up its certificate: unplug and plug in again.">Cắm cáp USB vào xe. <b>Lần đầu</b>, app tự thiết lập chứng chỉ: rút cáp ra và cắm lại là dùng được.</li>
+      <li data-en="If Android asks which app to open, choose &lt;b&gt;TPlay Auto&lt;/b&gt; and &lt;b&gt;Always&lt;/b&gt;.">Nếu Android hỏi "Mở bằng ứng dụng nào", chọn <b>TPlay Auto</b> và tích <b>Luôn dùng</b>, để lần sau vào thẳng.</li>
     </ol>
-    <p class="note">Sau khi cài, TPlay Auto tự cập nhật bản mới. Không cần tải lại từ trang này.</p>
+    <p class="note" data-en="TPlay Auto updates itself afterwards: no need to download it again.">Sau khi cài, TPlay Auto tự cập nhật bản mới. Không cần tải lại từ trang này.</p>
   </section>
 
   <section>
-    <h2>Tính năng</h2>
+    <h2 data-en="Features">Tính năng</h2>
     <div class="features">
-      <div class="feature"><b>Chia màn hình</b><span>Tối đa 4 ứng dụng cùng lúc trên màn xe: bản đồ, video, nhạc…</span></div>
-      <div class="feature"><b>Giọng nói tiếng Việt</b><span>"Chỉ đường về nhà", "mở YouTube", "phát nhạc Sơn Tùng"…</span></div>
-      <div class="feature"><b>Mọi ứng dụng</b><span>Google Maps, Vietmap, Waze, YouTube, Zalo… ngay trên màn hình xe.</span></div>
-      <div class="feature"><b>Xe không cảm ứng</b><span>Điều khiển bằng núm xoay, nút điều hướng trên xe.</span></div>
+      <div class="feature" data-en="&lt;b&gt;Split screen&lt;/b&gt;&lt;span&gt;Up to 4 apps at once on the car screen: maps, video, music…&lt;/span&gt;"><b>Chia màn hình</b><span>Tối đa 4 ứng dụng cùng lúc trên màn xe: bản đồ, video, nhạc…</span></div>
+      <div class="feature" data-en="&lt;b&gt;Phone calls on the car&lt;/b&gt;&lt;span&gt;Calls, including WhatsApp and Messenger, answered on the car screen.&lt;/span&gt;"><b>Giọng nói tiếng Việt</b><span>"Chỉ đường về nhà", "mở YouTube", "phát nhạc Sơn Tùng"…</span></div>
+      <div class="feature" data-en="&lt;b&gt;Any app&lt;/b&gt;&lt;span&gt;Google Maps, Waze, YouTube, Netflix, your local apps… right on the car screen.&lt;/span&gt;"><b>Mọi ứng dụng</b><span>Google Maps, Vietmap, Waze, YouTube, Zalo… ngay trên màn hình xe.</span></div>
+      <div class="feature" data-en="&lt;b&gt;Cars without touch&lt;/b&gt;&lt;span&gt;Works with the car&#x27;s rotary knob and buttons.&lt;/span&gt;"><b>Xe không cảm ứng</b><span>Điều khiển bằng núm xoay, nút điều hướng trên xe.</span></div>
     </div>
   </section>
 
   <section>
-    <h2>Bảng giá</h2>
+    <h2 data-en="Pricing">Bảng giá</h2>
     <div class="plans">
-      <div class="plan"><div class="price">50.000đ</div><div class="name">1 tháng</div></div>
-      <div class="plan"><div class="price">100.000đ</div><div class="name">1 năm</div></div>
-      <div class="plan"><div class="price">300.000đ</div><div class="name">Vĩnh viễn</div></div>
+      <div class="plan" data-en="&lt;div class=&quot;price&quot;&gt;US$5&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;1 month&lt;/div&gt;"><div class="price">50.000đ</div><div class="name">1 tháng</div></div>
+      <div class="plan" data-en="&lt;div class=&quot;price&quot;&gt;US$15&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;1 year&lt;/div&gt;"><div class="price">100.000đ</div><div class="name">1 năm</div></div>
+      <div class="plan" data-en="&lt;div class=&quot;price&quot;&gt;US$30&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Lifetime&lt;/div&gt;"><div class="price">300.000đ</div><div class="name">Vĩnh viễn</div></div>
     </div>
-    <p class="note">Dùng thử miễn phí 7 ngày. Thanh toán chuyển khoản ngay trong ứng dụng, kích hoạt tự động. Mỗi tài khoản dùng trên 1 điện thoại.</p>
+    <p class="note" data-en="7-day free trial. Pay in the app with PayPal or any card; your plan is activated automatically. One phone per account.">Dùng thử miễn phí 7 ngày. Thanh toán chuyển khoản ngay trong ứng dụng, kích hoạt tự động. Mỗi tài khoản dùng trên 1 điện thoại.</p>
   </section>
 
   <section>
-    <h2>Hỗ trợ</h2>
+    <h2 data-en="Support">Hỗ trợ</h2>
     <div class="support">
-      <a href="https://zalo.me/g/epn5z0myyjj6p8f47rbc" target="_blank" rel="noopener">Nhóm hỗ trợ Zalo</a>
-      <a href="https://www.facebook.com/share/g/1A64SE6KYq/" target="_blank" rel="noopener">Nhóm hỗ trợ Facebook</a>
+      <a href="https://zalo.me/g/epn5z0myyjj6p8f47rbc" target="_blank" rel="noopener" class="vi-only">Nhóm hỗ trợ Zalo</a>
+      <a href="https://www.facebook.com/share/g/1A64SE6KYq/" target="_blank" rel="noopener" data-en="Facebook support group">Nhóm hỗ trợ Facebook</a>
     </div>
   </section>
 
-  <footer>© TPlay Auto · tplay.io.vn</footer>
+  <footer data-en="© TPlay Auto · tplay.io.vn">© TPlay Auto · tplay.io.vn</footer>
 </main>
 <script>
   // Backup download on Google Drive: put its share link here; the button stays hidden while empty.
@@ -174,22 +178,54 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var z = document.getElementById("zoom"); if (z) z.remove(); } });
   })();
 
+  // Language: Vietnamese for phones and browsers set to Vietnamese, English for everyone else;
+  // the VI / EN button switches and is remembered.
+  var LANG = (function () {
+    try { var saved = localStorage.getItem("tplay_lang"); if (saved === "vi" || saved === "en") return saved; } catch (e) {}
+    var l = (navigator.languages && navigator.languages[0]) || navigator.language || "vi";
+    return /^vi/i.test(l) ? "vi" : "en";
+  })();
+  var update = null;
+  function renderUpdate() {
+    var u = update;
+    if (!u || !u.apk) return;
+    var en = LANG === "en";
+    document.getElementById("dl").href = u.apk;
+    document.getElementById("dl-text").textContent = (en ? "Download TPlay Auto " : "Tải TPlay Auto ") + u.version;
+    var mb = u.size ? " · " + (u.size / 1048576).toFixed(0) + " MB" : "";
+    document.getElementById("meta").textContent = en
+      ? "Version " + u.version + " · " + u.date + mb + " · Android 8.0 or newer · 7-day free trial"
+      : "Phiên bản " + u.version + " · " + u.date + mb + " · Android 8.0 trở lên · Dùng thử 7 ngày";
+    // What's new is written in Vietnamese: shown to Vietnamese readers only.
+    var ul = document.getElementById("news");
+    ul.innerHTML = "";
+    if (!en && u.notes && u.notes.length) {
+      u.notes.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+      document.getElementById("news-title").textContent = "Có gì mới trong bản " + u.version;
+      document.getElementById("news-box").hidden = false;
+    } else document.getElementById("news-box").hidden = true;
+  }
+  function applyLang() {
+    var en = LANG === "en";
+    document.documentElement.lang = LANG;
+    document.title = en ? "TPlay Auto – Download" : "TPlay Auto – Tải ứng dụng";
+    document.querySelectorAll("[data-en]").forEach(function (el) {
+      if (el.dataset.vi === undefined) el.dataset.vi = el.innerHTML;
+      el.innerHTML = en ? el.dataset.en : el.dataset.vi;
+    });
+    document.getElementById("lang").textContent = en ? "Tiếng Việt" : "English";
+    renderUpdate();
+  }
+  document.getElementById("lang").onclick = function () {
+    LANG = LANG === "en" ? "vi" : "en";
+    try { localStorage.setItem("tplay_lang", LANG); } catch (e) {}
+    applyLang();
+  };
+  applyLang();
+
   fetch("update.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (u) {
-      if (!u || !u.apk) return;
-      document.getElementById("dl").href = u.apk;
-      document.getElementById("dl-text").textContent = "Tải TPlay Auto " + u.version;
-      var mb = u.size ? " · " + (u.size / 1048576).toFixed(0) + " MB" : "";
-      document.getElementById("meta").textContent =
-        "Phiên bản " + u.version + " · " + u.date + mb + " · Android 8.0 trở lên · Dùng thử 7 ngày";
-      if (u.notes && u.notes.length) {
-        var ul = document.getElementById("news");
-        u.notes.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
-        document.getElementById("news-title").textContent = "Có gì mới trong bản " + u.version;
-        document.getElementById("news-box").hidden = false;
-      }
-    })
+    .then(function (u) { update = u; renderUpdate(); })
     .catch(function () {});
 </script>
 </body>
