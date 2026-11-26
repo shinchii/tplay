@@ -1,14 +1,11 @@
 {
-  "version": "1.6.4",
-  "versionCode": 10604,
+  "version": "1.6.5",
+  "versionCode": 10605,
   "date": "26/11/2026",
   "notes": [
-    "Thêm công tắc \"Tự tắt màn hình điện thoại khi lên xe\" trong Giao diện hiển thị: màn điện thoại tối đi nhưng màn xe vẫn chạy",
-    "Thêm hướng dẫn: không bấm nút nguồn khi đang dùng trên xe",
-    "Sửa lỗi app bị dừng trên một số máy Android 12 khi tìm xe không dây lúc app đang chạy nền",
-    "Sửa lỗi báo cáo chuyến đi bị gửi hai lần"
+    "Sửa lỗi mất tiếng khi phát YouTube (và một số app nhạc, video) ra màn hình xe trên máy không root: tiếng giờ ra loa xe bình thường"
   ],
-  "apk": "https://github.com/shinchii/tplay/releases/download/v1.6.4/TPlayAuto-1.6.4.apk",
-  "sha256": "7c4dbb8ce1d5cf232505eb90be610984ec4a241d88d7543e7506934a86aaf9c2",
+  "apk": "https://github.com/shinchii/tplay/releases/download/v1.6.5/TPlayAuto-1.6.5.apk",
+  "sha256": "551583b35dcb8b122e36e1302d558ff2bf129a46ae67c74fa31dc85dab60ff39",
   "size": 32087440
 }
