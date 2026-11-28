@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "date": "28/11/2026",
+  "notes": [
+    "Ra mắt TPlay Lite — Dashboard thời tiết & ảnh cá nhân, WebView YouTube không quảng cáo, Trackpad cho xe không cảm ứng, dùng chung tài khoản TPlay Auto"
+  ],
+  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.0.0/TPlayLite-1.0.0.apk",
+  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.0.0/TPlayLite-1.0.0.apk",
+  "sha256": "6d778918d8eeca7b160f9b7247c421903bcec502406b36fcb8c523f8d65d8a5f",
+  "size": 17991422
+}

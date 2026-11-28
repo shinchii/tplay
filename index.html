@@ -77,6 +77,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
       <span id="dl-text" data-en="Download TPlay Auto">Tải TPlay Auto</span>
     </a>
+    <a id="dl-lite" class="btn alt" href="https://github.com/shinchii/tplay/releases/download/lite-v1.0.0/TPlayLite-1.0.0.apk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+      <span id="dl-lite-text" data-en="Download TPlay Lite (WebView &amp; Dashboard)">Tải TPlay Lite (Bản nhẹ WebView · Dùng chung tài khoản)</span>
+    </a>
     <a id="drive" class="btn alt" href="#" hidden data-en="Backup download (Google Drive)">Tải dự phòng (Google Drive)</a>
     <p class="meta" id="meta" data-en="Android 8.0 or newer · 7-day free trial">Android 8.0 trở lên · Dùng thử miễn phí 7 ngày</p>
   </header>
@@ -203,6 +207,21 @@
     return /^vi/i.test(l) ? "vi" : "en";
   })();
   var update = null;
+  var updateLite = null;
+  function renderLiteUpdate() {
+    var l = updateLite;
+    if (!l || !l.apk) return;
+    var en = LANG === "en";
+    var a = document.getElementById("dl-lite");
+    var t = document.getElementById("dl-lite-text");
+    if (a) a.href = l.apk;
+    if (t) {
+      var mb = l.size ? " · " + (l.size / 1048576).toFixed(0) + " MB" : "";
+      t.textContent = en
+        ? "Download TPlay Lite " + l.version + mb
+        : "Tải TPlay Lite " + l.version + mb + " (Dùng chung tài khoản)";
+    }
+  }
   function renderUpdate() {
     var u = update;
     if (!u || !u.apk) return;
@@ -232,6 +251,7 @@
     });
     document.getElementById("lang").textContent = en ? "Tiếng Việt" : "English";
     renderUpdate();
+    renderLiteUpdate();
   }
   document.getElementById("lang").onclick = function () {
     LANG = LANG === "en" ? "vi" : "en";
@@ -243,6 +263,11 @@
   fetch("update.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (u) { update = u; renderUpdate(); })
+    .catch(function () {});
+
+  fetch("update-lite.json", { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (l) { updateLite = l; renderLiteUpdate(); })
     .catch(function () {});
 </script>
 </body>
