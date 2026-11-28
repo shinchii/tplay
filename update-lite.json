@@ -1,14 +1,14 @@
 {
-  "version": "1.1.0",
-  "versionName": "1.1.0",
-  "versionCode": 2,
+  "version": "1.1.1",
+  "versionName": "1.1.1",
+  "versionCode": 3,
   "date": "28/11/2026",
   "notes": [
-    "Hỗ trợ đa ngôn ngữ Tiếng Việt & Tiếng Anh (tự động theo máy + nút chọn trong Cài đặt)",
-    "Thêm mục Gửi nhật ký lỗi & tự báo crash về trang quản trị (gắn nhãn riêng TPlay Lite)"
+    "Đưa hướng dẫn thiết lập & cảnh báo tắt Tùy chọn nhà phát triển ra ngay tab Trang chủ",
+    "Tự động bật popup thông báo cập nhật OTA ngay khi mở ứng dụng"
   ],
-  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.1.0/TPlayLite-1.1.0.apk",
-  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.1.0/TPlayLite-1.1.0.apk",
-  "sha256": "4a210006003a15aa686420ad53bdc25b57bf2e5c39351998e2ecaccf38476603",
+  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.1.1/TPlayLite-1.1.1.apk",
+  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.1.1/TPlayLite-1.1.1.apk",
+  "sha256": "6b1de9ab5835f00c9d2210e5e7b44729937f3ec53a7c871f376e6eddc542d2b6",
   "size": 18007806
 }
