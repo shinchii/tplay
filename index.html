@@ -160,11 +160,12 @@
   .lite-card .ck { color: var(--green); }
   .ver-meta { font-size: 12px; margin-top: 12px; opacity: .72; }
   .hero-thumb {
-    width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px;
-    margin: 0 0 18px; box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
+    width: 100%; height: 148px; object-fit: cover; object-position: center 42%;
+    border-radius: 14px; margin: 2px 0 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
   }
-  .auto-card .hero-thumb { border: 1px solid rgba(255, 255, 255, .14); }
-  .lite-card .hero-thumb { border: 1px solid rgba(0, 113, 227, .14); box-shadow: 0 12px 28px rgba(0, 113, 227, .12); }
+  .auto-card .hero-thumb { border: 1px solid rgba(255, 255, 255, .12); }
+  .lite-card .hero-thumb { border: 1px solid rgba(0, 113, 227, .12); box-shadow: 0 8px 20px rgba(0, 113, 227, .09); }
   .shared-banner {
     margin: 24px auto 0; max-width: 720px; padding: 14px 20px; border-radius: 16px;
     background: var(--surface); border: 1px solid var(--line);
@@ -312,6 +313,7 @@
   @media (max-width: 780px) {
     .nav-links { display: none; }
     .hero-grid, .two-col, .plans { grid-template-columns: 1fr; }
+    .hero-thumb { height: 132px; }
     .band { padding: 54px 0; }
     .shot { flex: 0 0 92%; }
     .shot.phone { flex: 0 0 185px; max-width: 185px; }
