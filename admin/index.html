@@ -15,6 +15,9 @@ button.sec{background:#26324a}button.dan{background:#9b2c2c}
 table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px;border-bottom:1px solid #2c3446;text-align:left;vertical-align:top}
 .bars{display:flex;align-items:flex-end;gap:4px;height:120px;margin-top:8px}.bars div{flex:1;background:var(--pri);border-radius:4px 4px 0 0;min-height:2px;position:relative}
 pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-height:300px;overflow:auto;font-size:12px}
+.app-tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;vertical-align:middle}
+.app-lite{background:#123c2d;color:#4ade80;border:1px solid #1f6f50}
+.app-auto{background:#162952;color:#93c5fd;border:1px solid #294b91}
 #msg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);max-width:92%;margin:0;padding:10px 16px;border-radius:12px;background:#151c2c;box-shadow:0 6px 24px rgba(0,0,0,.5);font-size:14px}#msg:empty{display:none}
 </style></head><body><main>
 <h1>TPlay Auto · Quản trị <button class="sec" id="out" onclick="logout()" style="display:none;float:right;width:auto;font-size:13px;padding:6px 12px">Đăng xuất</button></h1>
@@ -35,7 +38,10 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
       <div id="ulist">Đang tải…</div></div>
   </section>
   <section id="t-logs" style="display:none">
-    <div class="card"><div class="row"><input id="lq" placeholder="Mã nhật ký khách gửi (VD: SD5DUG) — để trống để xem mới nhất" style="flex:3"><button onclick="loadLogs()" style="flex:0">Tìm</button></div></div>
+    <div class="card">
+      <div class="row"><input id="lq" placeholder="Mã nhật ký khách gửi (VD: SD5DUG) — để trống để xem mới nhất" style="flex:3"><button onclick="loadLogs()" style="flex:0">Tìm</button></div>
+      <div class="tabs row" id="lf" style="margin-top:8px"><button class="on" data-a="all">Tất cả</button><button data-a="auto">TPlay Auto</button><button data-a="lite">TPlay Lite</button></div>
+    </div>
     <div class="card" id="logs">Đang tải…</div>
   </section>
   <section id="t-promos" style="display:none">
@@ -47,7 +53,10 @@ pre{white-space:pre-wrap;background:#0e1422;padding:10px;border-radius:10px;max-
     <div class="card" id="promos">Đang tải…</div>
   </section>
   <section id="t-drives" style="display:none"><div class="card" id="drives">Đang tải…</div></section>
-  <section id="t-crashes" style="display:none"><div class="card" id="crashes">Đang tải…</div></section>
+  <section id="t-crashes" style="display:none">
+    <div class="card"><div class="tabs row" id="cf"><button class="on" data-a="all">Tất cả</button><button data-a="auto">TPlay Auto</button><button data-a="lite">TPlay Lite</button></div></div>
+    <div class="card" id="crashes">Đang tải…</div>
+  </section>
   <section id="t-push" style="display:none"><div class="card"><h2>Gửi thông báo đến điện thoại khách</h2>
     <p class="mut">Khách nhận ngay trên thanh thông báo, kể cả khi không mở app. Chỉ máy cài TPlay Auto 1.4.8 trở lên và có dịch vụ Google Play mới nhận được.</p>
     <div class="row"><select id="ptarget" onchange="$('pq').style.display=this.value==='user'?'':'none'">
@@ -85,6 +94,8 @@ function logout(){ls.set(RT,null);tok=null;$("out").style.display="none";$("app"
 const $=id=>document.getElementById(id), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let msgT;const msg=(t,e)=>{$("msg").textContent=t||"";$("msg").style.color=e?"var(--err)":"var(--ok)";clearTimeout(msgT);if(t)msgT=setTimeout(()=>$("msg").textContent="",8000)};
 const vnd=n=>(n||0).toLocaleString("vi-VN")+" đ", d=ms=>ms?new Date(ms).toLocaleString("vi-VN"):"—";
+const isLiteApp=s=>/lite/i.test(String(s||""));
+const appBadge=s=>{const raw=String(s||"").trim();const lite=isLiteApp(raw);const ver=raw.replace(/^TPlay\s*(Lite|Auto)\s*/i,"");return `<span class="app-tag ${lite?"app-lite":"app-auto"}">${lite?"TPlay Lite":"TPlay Auto"}${ver?" · "+esc(ver):""}</span>`};
 const planVi={trial:"Dùng thử",month:"1 tháng",year:"1 năm",lifetime:"Vĩnh viễn"};
 async function login(){
   const r=await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},
@@ -134,8 +145,14 @@ function renderUsers(){
 document.querySelectorAll("#uf button").forEach(b=>b.onclick=()=>{
   uf=b.dataset.f;document.querySelectorAll("#uf button").forEach(x=>x.classList.toggle("on",x===b));renderUsers();
 });
-document.querySelectorAll(".tabs:not(#uf) button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll(".tabs:not(#uf) button").forEach(x=>x.classList.toggle("on",x===b));
+document.querySelectorAll("#lf button").forEach(b=>b.onclick=()=>{
+  lf=b.dataset.a;document.querySelectorAll("#lf button").forEach(x=>x.classList.toggle("on",x===b));renderLogs();
+});
+document.querySelectorAll("#cf button").forEach(b=>b.onclick=()=>{
+  cf=b.dataset.a;document.querySelectorAll("#cf button").forEach(x=>x.classList.toggle("on",x===b));renderCrashes();
+});
+document.querySelectorAll(".tabs:not(#uf):not(#lf):not(#cf) button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs:not(#uf):not(#lf):not(#cf) button").forEach(x=>x.classList.toggle("on",x===b));
   ["stats","users","logs","promos","crashes","drives","push"].forEach(t=>$("t-"+t).style.display=t===b.dataset.t?"":"none");
   if(b.dataset.t==="stats")loadStats(); if(b.dataset.t==="users"&&!ulist)loadUsers(); if(b.dataset.t==="promos")loadPromos(); if(b.dataset.t==="logs")loadLogs(); if(b.dataset.t==="crashes")loadCrashes(); if(b.dataset.t==="drives")loadDrives();
 });
@@ -169,7 +186,7 @@ function show(r){
   <div class="row" style="margin-top:8px"><input id="np" placeholder="Mật khẩu mới (≥ 6 ký tự)" style="flex:3"><button style="flex:0;white-space:nowrap" onclick="act('resetPassword',$('np').value)">Đặt lại mật khẩu</button></div>
   <h3>Đơn hàng</h3><table><tr><th>Mã</th><th>Gói</th><th>Số tiền</th><th>KM</th><th>Trạng thái</th><th>Ngày</th></tr>
   ${(r.orders||[]).map(o=>`<tr><td>${o.code}</td><td>${planVi[o.plan]||o.plan}</td><td>${o.currency==="USD"?`US$${o.usd} <span class="mut">PayPal</span>`:vnd(o.amount)}</td><td>${esc(o.promo||"")}</td><td>${o.status}</td><td>${d(o.createdAt)}</td></tr>`).join("")}</table>
-  <h3>Nhật ký khách gửi</h3>${(r.logs||[]).length?r.logs.map(l=>`<p><b>${l.id}</b> · ${d(l.at)} · ${esc(l.app)} · ${esc(l.device)}<br>${esc(l.note)}</p><pre>${esc(l.text)}</pre>`).join(""):'<p class="mut">Chưa có.</p>'}`;
+  <h3>Nhật ký khách gửi</h3>${(r.logs||[]).length?r.logs.map(l=>`<p><b>${l.id}</b> · ${d(l.at)} · ${appBadge(l.app)} · ${esc(l.device)}<br>${esc(l.note)}</p><pre>${esc(l.text)}</pre>`).join(""):'<p class="mut">Chưa có.</p>'}`;
 }
 async function act(action,value){
   if(action==="setPlan"&&value==="expired"&&!confirm("Cho tài khoản này hết hạn ngay?"))return;
@@ -188,10 +205,16 @@ async function savePromo(){
     plans:[...document.querySelectorAll(".pl:checked")].map(x=>x.value)})).promos);msg("Đã lưu mã")}catch(e){msg(e.message,1)}
 }
 async function disablePromo(code){try{renderPromos((await call("adminPromos",{action:"disable",code})).promos)}catch(e){msg(e.message,1)}}
+let llist=null, lf="all", clist=null, cf="all";
+const matchAppFilter=(app,f)=>f==="all"||(f==="lite"?isLiteApp(app):!isLiteApp(app));
+function renderLogs(){
+  if(!llist)return;
+  const rows=llist.filter(x=>matchAppFilter(x.app,lf));
+  $("logs").innerHTML=rows.length?rows.map(x=>`<div style="margin-bottom:14px"><p><b>${esc(x.ref)}</b> · ${d(x.at)} · ${appBadge(x.app)} · <a href="#" data-id="${esc(x.identifier)}" onclick="openUser(this.dataset.id);return false" style="color:var(--pri)">${esc(x.identifier)}</a> · ${esc(x.device)}</p>
+  ${x.note?`<p>“${esc(x.note)}”</p>`:""}<details><summary class="mut" style="cursor:pointer">Xem nội dung nhật ký</summary><pre>${esc(x.text)}</pre></details></div>`).join(""):'<p class="mut">Không có nhật ký nào.</p>';
+}
 async function loadLogs(){
-  try{const l=(await call("adminLogs",{q:$("lq").value})).logs;
-  $("logs").innerHTML=l.length?l.map(x=>`<div style="margin-bottom:14px"><p><b>${esc(x.ref)}</b> · ${d(x.at)} · <a href="#" data-id="${esc(x.identifier)}" onclick="openUser(this.dataset.id);return false" style="color:var(--pri)">${esc(x.identifier)}</a> · ${esc(x.app)} · ${esc(x.device)}</p>
-  ${x.note?`<p>“${esc(x.note)}”</p>`:""}<details><summary class="mut" style="cursor:pointer">Xem nội dung nhật ký</summary><pre>${esc(x.text)}</pre></details></div>`).join(""):'<p class="mut">Không có nhật ký nào.</p>'}
+  try{llist=(await call("adminLogs",{q:$("lq").value})).logs;renderLogs()}
   catch(e){$("logs").textContent=e.message}
 }
 async function presetUpdate(){
@@ -210,9 +233,13 @@ async function sendPush(){
   catch(e){$("presult").textContent="";msg(e.message==="no such account"?"Không tìm thấy khách":e.message,1)}
 }
 function openUser(id){$("q").value=id;document.querySelector("[data-t=users]").click();find();window.scrollTo(0,0)}
+function renderCrashes(){
+  if(!clist)return;
+  const rows=clist.filter(x=>matchAppFilter(x.app,cf));
+  $("crashes").innerHTML=`<h2>Lỗi văng app gần đây</h2>${rows.length?rows.map(x=>`<p>${appBadge(x.app)} · ${esc(x.device)} · Android ${esc(x.android)} · ${d(x.crashedAt||x.at)}</p><pre>${esc(x.trace)}</pre>`).join(""):'<p class="mut">Chưa có lỗi nào.</p>'}`;
+}
 async function loadCrashes(){
-  try{const c=(await call("adminCrashes")).crashes;
-  $("crashes").innerHTML=`<h2>Lỗi văng app gần đây</h2>${c.length?c.map(x=>`<p><b>${esc(x.app)}</b> · ${esc(x.device)} · Android ${esc(x.android)} · ${d(x.crashedAt||x.at)}</p><pre>${esc(x.trace)}</pre>`).join(""):'<p class="mut">Chưa có lỗi nào.</p>'}`}
+  try{clist=(await call("adminCrashes")).crashes;renderCrashes()}
   catch(e){$("crashes").textContent=e.message}
 }
 const probVi={sound_on_phone:"Tiếng ra loa điện thoại (không tự hồi phục)",no_sound_method:"Không có cách đưa tiếng lên xe",cert_refused:"Xe từ chối chứng chỉ",bridge_lost:"Cầu nối bị đứt",bridge_back:"Cầu nối tự bật lại được",apps_lost:"App trên màn xe bị đứng",apps_back:"App trên màn xe tự mở lại được"};
