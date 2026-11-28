@@ -1,14 +1,15 @@
 {
-  "version": "1.1.1",
-  "versionName": "1.1.1",
-  "versionCode": 3,
+  "version": "1.2.0",
+  "versionName": "1.2.0",
+  "versionCode": 4,
   "date": "28/11/2026",
   "notes": [
-    "Đưa hướng dẫn thiết lập & cảnh báo tắt Tùy chọn nhà phát triển ra ngay tab Trang chủ",
-    "Tự động bật popup thông báo cập nhật OTA ngay khi mở ứng dụng"
+    "Nhận thông báo đẩy (FCM Push) trực tiếp từ trang quản trị & nhắc gia hạn",
+    "Thêm Chế độ Máy tính (Desktop Mode) & Cỡ chữ/Zoom WebView (85%–130%)",
+    "Thêm Lịch sử trang vừa mở gần đây trên Trang chủ, Thời tiết theo vị trí GPS và nút Xóa cache/Cookie WebView"
   ],
-  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.1.1/TPlayLite-1.1.1.apk",
-  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.1.1/TPlayLite-1.1.1.apk",
-  "sha256": "6b1de9ab5835f00c9d2210e5e7b44729937f3ec53a7c871f376e6eddc542d2b6",
-  "size": 18007806
+  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.0/TPlayLite-1.2.0.apk",
+  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.0/TPlayLite-1.2.0.apk",
+  "sha256": "b10bb7570fa7ed05053b427d34113212a40f7eb3ed406854b1d0b09f80e7dcf4",
+  "size": 18676820
 }
