@@ -3,256 +3,770 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TPlay Auto – Tải ứng dụng</title>
-<meta name="description" content="TPlay Auto đưa ứng dụng trên điện thoại Android lên màn hình ô tô: bản đồ, YouTube, nhạc, chia màn hình. Dùng thử miễn phí 7 ngày.">
-<meta property="og:title" content="TPlay Auto">
-<meta property="og:description" content="Đưa ứng dụng điện thoại lên màn hình ô tô. Dùng thử miễn phí 7 ngày.">
+<title>TPlay – TPlay Auto &amp; TPlay Lite cho Android Auto</title>
+<meta name="description" content="Hai ứng dụng cho Android Auto, dùng chung 1 tài khoản: TPlay Auto (mở mọi ứng dụng, chia 4 màn hình) và TPlay Lite (nhẹ mượt, không cần bật chế độ nhà phát triển, dùng Ngân hàng &amp; VNeID thoải mái).">
+<meta property="og:title" content="TPlay – TPlay Auto &amp; TPlay Lite">
+<meta property="og:description" content="Hai phiên bản cho Android Auto, dùng chung 1 tài khoản. Dùng thử miễn phí 7 ngày.">
 <meta property="og:image" content="https://tplay.io.vn/logo.png">
 <link rel="icon" href="favicon.png">
 <style>
   :root {
-    --bg: #0d1117; --card: #161b22; --line: #262d36; --text: #e8edf2; --muted: #9aa5b1;
-    --pri: #ffb300; --pri-text: #1a1300; --ok: #3fb950;
+    --bg: #fbfbfd;
+    --surface: #f5f5f7;
+    --card: #ffffff;
+    --ink: #1d1d1f;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, .08);
+    --blue: #0071e3;
+    --blue-hover: #0077ed;
+    --amber: #f59e0b;
+    --green: #16a34a;
+    --dark-bg: #000000;
+    --dark-card: #161617;
+    --dark-line: rgba(255, 255, 255, .12);
+    --dark-ink: #f5f5f7;
+    --dark-muted: #a1a1a6;
+    --radius: 26px;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   [hidden] { display: none !important; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  a { color: var(--pri); }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
-  header { text-align: center; }
-  header img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 10px 40px rgba(255, 179, 0, .18); }
-  h1 { font-size: 34px; margin: 16px 0 6px; letter-spacing: -.5px; }
-  .lead { color: var(--muted); margin: 0 auto 24px; max-width: 520px; }
-  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 420px; margin: 0 auto;
-         padding: 16px 20px; border-radius: 14px; font-size: 18px; font-weight: 700; text-decoration: none; }
-  .btn.main { background: var(--pri); color: var(--pri-text); }
-  .btn.alt { margin-top: 10px; background: transparent; color: var(--text); border: 1px solid var(--line); font-size: 16px; font-weight: 600; }
-  .btn svg { width: 22px; height: 22px; flex: none; }
-  .meta { text-align: center; color: var(--muted); font-size: 14px; margin-top: 10px; }
-  section { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-top: 20px; }
-  h2 { font-size: 20px; margin: 0 0 12px; }
-  ul.news { margin: 0; padding-left: 20px; }
-  ul.news li { margin: 4px 0; }
-  ol.steps { margin: 0; padding-left: 22px; }
-  ol.steps li { margin: 8px 0; }
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-  .feature { padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, .03); border: 1px solid var(--line); }
-  .feature b { display: block; margin-bottom: 4px; }
-  .feature span { color: var(--muted); font-size: 14px; }
-  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
-  .plan { text-align: center; padding: 16px 10px; border-radius: 12px; border: 1px solid var(--line); }
-  .plan .price { font-size: 24px; font-weight: 800; color: var(--pri); }
-  .plan .name { color: var(--muted); font-size: 14px; }
-  .note { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
-  .support { display: flex; gap: 10px; flex-wrap: wrap; }
-  .support a { flex: 1 1 200px; text-align: center; padding: 12px; border-radius: 12px; border: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 600; }
-  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -4px; scrollbar-width: none; }
-  .shots::-webkit-scrollbar { display: none; }
-  .shot { flex: 0 0 88%; scroll-snap-align: center; margin: 0 4px; }
-  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; border-radius: 12px; border: 1px solid var(--line); cursor: zoom-in; background: #000; }
-  .shot figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; text-align: center; }
-  .shot-nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
-  .shot-nav button { width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 0; background: var(--line); cursor: pointer; }
-  .shot-nav button.on { background: var(--pri); width: 22px; border-radius: 4px; }
-  /* Phone screenshots: narrower tiles, in a rounded phone-like frame. */
-  .shot.phone { flex: 0 0 46%; max-width: 230px; }
-  .shot.phone img { aspect-ratio: 9 / 20; object-fit: cover; border-radius: 22px; border: 3px solid #2a313b; }
-  #zoom { position: fixed; inset: 0; background: rgba(0, 0, 0, .92); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10; cursor: zoom-out; }
-  #zoom img { max-width: 100%; max-height: 100%; border-radius: 10px; }
-  .lang { position: absolute; top: 14px; right: 16px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: 600 13px/1 system-ui, sans-serif; cursor: pointer; }
-  main { position: relative; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--blue); text-decoration: none; }
+  img { max-width: 100%; display: block; }
   html[lang="en"] .vi-only { display: none !important; }
-  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
-  @media (max-width: 480px) { h1 { font-size: 28px; } }
+
+  /* Sticky Apple Glass Navbar */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251, 251, 253, .82);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1080px; margin: 0 auto; padding: 0 20px; height: 54px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 18px; letter-spacing: -.02em; color: var(--ink);
+  }
+  .brand img { width: 28px; height: 28px; border-radius: 8px; }
+  .nav-links { display: flex; align-items: center; gap: 22px; font-size: 13px; font-weight: 500; }
+  .nav-links a { color: var(--muted); transition: color .15s; }
+  .nav-links a:hover { color: var(--ink); }
+  .lang-btn {
+    padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink); font: 600 12px/1 inherit; cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .lang-btn:hover { background: var(--surface); }
+
+  /* Containers */
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .band { padding: 76px 0; }
+  .band.light { background: var(--bg); }
+  .band.gray { background: var(--surface); }
+  .band.dark { background: var(--dark-bg); color: var(--dark-ink); }
+
+  /* Typography */
+  .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--blue); margin: 0 0 10px;
+  }
+  .band.dark .eyebrow { color: #ffb300; }
+  h1 {
+    font-size: clamp(36px, 6vw, 58px); line-height: 1.06; letter-spacing: -.035em;
+    font-weight: 700; margin: 0 0 16px;
+  }
+  h2 {
+    font-size: clamp(28px, 4.5vw, 44px); line-height: 1.1; letter-spacing: -.03em;
+    font-weight: 700; margin: 0 0 14px;
+  }
+  h3 { font-size: 21px; line-height: 1.25; letter-spacing: -.02em; font-weight: 700; margin: 0 0 8px; }
+  .sub {
+    font-size: clamp(17px, 2.2vw, 21px); line-height: 1.45; color: var(--muted);
+    max-width: 680px; margin: 0 auto; font-weight: 400;
+  }
+  .band.dark .sub { color: var(--dark-muted); }
+  .center { text-align: center; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 24px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    transition: transform .15s, background .15s, opacity .15s; cursor: pointer; border: 0;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .btn.blue { background: var(--blue); color: #fff; }
+  .btn.blue:hover { background: var(--blue-hover); }
+  .btn.amber { background: #ffb300; color: #1a1300; }
+  .btn.amber:hover { background: #ffc233; }
+  .btn.ghost { background: transparent; color: var(--blue); border: 1px solid rgba(0, 113, 227, .35); }
+  .btn.ghost:hover { background: rgba(0, 113, 227, .06); }
+  .btn.ghost-dark { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, .25); }
+  .btn.ghost-dark:hover { background: rgba(255, 255, 255, .08); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  /* Hero Product Chooser */
+  .hero { padding: 64px 0 72px; text-align: center; }
+  .hero-logo {
+    width: 76px; height: 76px; border-radius: 20px; margin: 0 auto 20px;
+    box-shadow: 0 18px 40px rgba(0, 113, 227, .18);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    margin-top: 40px; text-align: left;
+  }
+  .product-card {
+    border-radius: 28px; padding: 30px 28px; display: flex; flex-direction: column;
+    justify-content: space-between; position: relative; overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .product-card:hover { transform: translateY(-3px); }
+  .product-card.auto-card {
+    background: linear-gradient(160deg, #161619 0%, #09090b 100%);
+    color: #f5f5f7; border: 1px solid rgba(255, 255, 255, .1);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, .18);
+  }
+  .product-card.lite-card {
+    background: linear-gradient(160deg, #ffffff 0%, #eef5ff 100%);
+    color: var(--ink); border: 1px solid rgba(0, 113, 227, .16);
+    box-shadow: 0 24px 50px rgba(0, 113, 227, .09);
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
+    border-radius: 999px; font-size: 12px; font-weight: 700; width: fit-content; margin-bottom: 14px;
+  }
+  .pill.pro { background: rgba(255, 179, 0, .16); color: #ffc133; }
+  .pill.safe { background: #dcfce7; color: #15803d; }
+  .product-card h3 { font-size: 28px; margin: 0 0 8px; letter-spacing: -.03em; }
+  .product-card p.desc { margin: 0 0 18px; font-size: 15px; line-height: 1.5; }
+  .auto-card p.desc { color: var(--dark-muted); }
+  .lite-card p.desc { color: var(--muted); }
+  .card-points { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; font-size: 14px; }
+  .card-points li { display: flex; align-items: flex-start; gap: 8px; }
+  .card-points .ck { font-weight: 800; flex: none; }
+  .auto-card .ck { color: #ffb300; }
+  .lite-card .ck { color: var(--green); }
+  .ver-meta { font-size: 12px; margin-top: 12px; opacity: .72; }
+  .shared-banner {
+    margin: 24px auto 0; max-width: 720px; padding: 14px 20px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--line);
+    font-size: 14px; color: var(--muted); text-align: center;
+  }
+  .shared-banner b { color: var(--ink); }
+
+  /* Trust Highlight Card for TPlay Lite */
+  .trust-box {
+    margin: 32px 0 36px; padding: 26px 28px; border-radius: 24px;
+    background: linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%);
+    border: 1px solid #bbf7d0;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .trust-icon {
+    width: 56px; height: 56px; border-radius: 16px; background: #16a34a; color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 28px; flex: none;
+    box-shadow: 0 10px 24px rgba(22, 163, 74, .25);
+  }
+  .trust-copy { flex: 1; min-width: 240px; }
+  .trust-copy h3 { color: #14532d; margin: 0 0 4px; font-size: 20px; }
+  .trust-copy p { margin: 0; color: #166534; font-size: 15px; }
+
+  /* Galleries */
+  .gallery-block { margin-top: 34px; }
+  .gallery-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted); margin: 0 0 14px;
+  }
+  .band.dark .gallery-label { color: var(--dark-muted); }
+  .shots {
+    display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 6px; scrollbar-width: none;
+  }
+  .shots::-webkit-scrollbar { display: none; }
+  .shot { flex: 0 0 82%; max-width: 760px; scroll-snap-align: center; margin: 0; }
+  .shot img {
+    width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: 20px; cursor: zoom-in;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .14);
+  }
+  .band.dark .shot img { border: 1px solid var(--dark-line); background: #0a0a0c; }
+  .shot figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); text-align: center; }
+  .band.dark .shot figcaption { color: var(--dark-muted); }
+
+  /* Raw Phone Screenshots (no car mockup) */
+  .shot.phone { flex: 0 0 215px; max-width: 215px; }
+  .shot.phone img {
+    aspect-ratio: 9 / 20; object-fit: cover; border-radius: 26px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, .12);
+  }
+  .band.dark .shot.phone img { border: 2px solid rgba(255, 255, 255, .16); }
+
+  .shot-nav { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+  .shot-nav button {
+    width: 8px; height: 8px; padding: 0; border-radius: 999px; border: 0;
+    background: rgba(128, 128, 134, .35); cursor: pointer; transition: all .2s;
+  }
+  .shot-nav button.on { background: var(--blue); width: 24px; }
+  .band.dark .shot-nav button.on { background: #ffb300; }
+
+  /* Bento Feature Grid */
+  .bento {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 32px;
+  }
+  .bento-card {
+    padding: 22px; border-radius: 22px; background: var(--card); border: 1px solid var(--line);
+  }
+  .band.dark .bento-card { background: var(--dark-card); border-color: var(--dark-line); }
+  .bento-card b { display: block; font-size: 16px; margin-bottom: 6px; letter-spacing: -.01em; }
+  .bento-card span { font-size: 14px; color: var(--muted); display: block; line-height: 1.5; }
+  .band.dark .bento-card span { color: var(--dark-muted); }
+
+  /* Release notes & Install Accordion / Card */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+  .info-card {
+    padding: 24px; border-radius: 22px; background: var(--card); border: 1px solid var(--line);
+  }
+  .band.dark .info-card { background: var(--dark-card); border-color: var(--dark-line); }
+  .info-card h4 { margin: 0 0 12px; font-size: 17px; letter-spacing: -.01em; }
+  .info-card ol, .info-card ul { margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.65; color: var(--muted); }
+  .band.dark .info-card ol, .band.dark .info-card ul { color: var(--dark-muted); }
+  .info-card li { margin: 5px 0; }
+  .info-card b { color: var(--ink); }
+  .band.dark .info-card b { color: var(--dark-ink); }
+
+  /* Comparison Table */
+  .table-wrap {
+    margin-top: 34px; border-radius: 24px; overflow: hidden;
+    background: var(--card); border: 1px solid var(--line);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .04);
+  }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.cmp th, table.cmp td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); }
+  table.cmp tr:last-child td { border-bottom: 0; }
+  table.cmp thead th { background: var(--surface); font-size: 14px; font-weight: 700; color: var(--ink); }
+  table.cmp td:nth-child(2), table.cmp td:nth-child(3),
+  table.cmp th:nth-child(2), table.cmp th:nth-child(3) { text-align: center; width: 24%; }
+  .yes { color: var(--green); font-weight: 700; }
+  .muted-cell { color: var(--muted); font-size: 13px; }
+
+  /* Pricing */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  .plan {
+    background: var(--card); border: 1px solid var(--line); border-radius: 24px;
+    padding: 28px 20px; text-align: center; position: relative;
+  }
+  .plan.featured {
+    border: 2px solid var(--blue);
+    box-shadow: 0 18px 40px rgba(0, 113, 227, .12);
+  }
+  .plan-tag {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--blue); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  }
+  .plan .name { font-size: 15px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+  .plan .price { font-size: 32px; font-weight: 800; letter-spacing: -.03em; color: var(--ink); }
+  .plan .sub-price { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  /* Support */
+  .support-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
+  .support-btn {
+    padding: 14px 26px; border-radius: 999px; background: var(--card);
+    border: 1px solid var(--line); color: var(--ink); font-weight: 600; font-size: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .04); transition: transform .15s;
+  }
+  .support-btn:hover { transform: translateY(-2px); }
+
+  footer {
+    padding: 36px 20px 52px; text-align: center; font-size: 13px; color: var(--muted);
+    border-top: 1px solid var(--line); background: var(--surface);
+  }
+
+  /* Lightbox Zoom */
+  #zoom {
+    position: fixed; inset: 0; background: rgba(0, 0, 0, .92);
+    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
+    padding: 20px; z-index: 100; cursor: zoom-out;
+  }
+  #zoom img { max-width: 100%; max-height: 100%; border-radius: 14px; }
+
+  @media (max-width: 780px) {
+    .nav-links { display: none; }
+    .hero-grid, .two-col, .plans { grid-template-columns: 1fr; }
+    .band { padding: 54px 0; }
+    .shot { flex: 0 0 92%; }
+    .shot.phone { flex: 0 0 185px; max-width: 185px; }
+    table.cmp th, table.cmp td { padding: 12px 10px; font-size: 13px; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <button id="lang" class="lang" type="button" aria-label="Language">EN</button>
-  <header>
-    <img src="logo.png" alt="TPlay Auto">
-    <h1>TPlay Auto</h1>
-    <p class="lead" data-en="Put your Android phone&#x27;s apps on your car&#x27;s screen: Google Maps, Waze, YouTube, music, several apps side by side, for cars with Android Auto.">Đưa ứng dụng trên điện thoại Android lên màn hình ô tô: Google Maps, Vietmap, YouTube, nhạc, chia màn hình nhiều ứng dụng, điều khiển bằng giọng nói tiếng Việt.</p>
-    <a id="dl" class="btn main" href="https://github.com/shinchii/tplay/releases/latest">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
-      <span id="dl-text" data-en="Download TPlay Auto">Tải TPlay Auto</span>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#">
+      <img src="logo.png" alt="TPlay">
+      <span>TPlay</span>
     </a>
-    <a id="dl-lite" class="btn alt" href="https://github.com/shinchii/tplay/releases/download/lite-v1.2.1/TPlayLite-1.2.1.apk">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
-      <span id="dl-lite-text" data-en="Download TPlay Lite (WebView &amp; Dashboard)">Tải TPlay Lite (Bản nhẹ WebView · Dùng chung tài khoản)</span>
-    </a>
-    <a id="drive" class="btn alt" href="#" hidden data-en="Backup download (Google Drive)">Tải dự phòng (Google Drive)</a>
-    <p class="meta" id="meta" data-en="Android 8.0 or newer · 7-day free trial">Android 8.0 trở lên · Dùng thử miễn phí 7 ngày</p>
-  </header>
-
-  <section>
-    <h2 data-en="In the car">Hình ảnh trên xe</h2>
-    <div class="shots" id="shots">
-      <figure class="shot"><img src="img/xe-4.webp" width="1600" height="901" alt="Chia 4 màn hình và mở mọi ứng dụng"><figcaption data-en="Four apps at once, and every app of your phone">Chia 4 màn hình, mở được mọi ứng dụng trong điện thoại</figcaption></figure>
-      <figure class="shot"><img src="img/xe-1.webp" width="1600" height="900" loading="lazy" alt="Google Maps và YouTube cùng lúc trên màn hình xe"><figcaption data-en="Google Maps and YouTube together on the car screen">Google Maps và YouTube cùng lúc trên màn hình xe</figcaption></figure>
-      <figure class="shot"><img src="img/xe-2.webp" width="1600" height="900" loading="lazy" alt="Vừa xem bản đồ vừa xem video"><figcaption data-en="The map and a video side by side">Vừa xem bản đồ vừa xem video, chia đôi màn hình</figcaption></figure>
-      <figure class="shot"><img src="img/xe-3.webp" width="1600" height="894" loading="lazy" alt="Chia 4 ứng dụng trên màn hình xe"><figcaption data-en="Four apps on the car screen">Chia 4 ứng dụng trên màn hình xe</figcaption></figure>
-      <figure class="shot"><img src="img/xe-5.webp" width="1600" height="452" loading="lazy" alt="Mọi ứng dụng của điện thoại trên màn xe"><figcaption data-en="All your phone&#x27;s apps on the car screen">Mọi ứng dụng của điện thoại ngay trên màn xe</figcaption></figure>
-      <figure class="shot"><img src="img/xe-6.webp" width="1600" height="900" loading="lazy" alt="Chỉ đường trong khi xem video"><figcaption data-en="Directions while a video plays">Chỉ đường trong khi xem video</figcaption></figure>
+    <div class="nav-links">
+      <a href="#tplay-auto">TPlay Auto</a>
+      <a href="#tplay-lite">TPlay Lite</a>
+      <a href="#compare" data-en="Compare">So sánh</a>
+      <a href="#pricing" data-en="Pricing">Bảng giá</a>
+      <a href="#support" data-en="Support">Hỗ trợ</a>
     </div>
-    <div class="shot-nav" id="shot-nav"></div>
-  </section>
+    <button id="lang" class="lang-btn" type="button" aria-label="Language">English</button>
+  </div>
+</nav>
 
-  <section>
-    <h2 data-en="The app">Giao diện ứng dụng</h2>
-    <div class="shots" id="app-shots">
-      <figure class="shot phone"><img src="img/app-1.webp" width="720" height="1600" alt="Trang chủ: trạng thái kết nối xe"><figcaption data-en="Home: the car connection at a glance">Trang chủ: trạng thái kết nối xe</figcaption></figure>
-      <figure class="shot phone"><img src="img/app-2.webp" width="720" height="1600" loading="lazy" alt="Kiểm tra kỹ trước khi ra xe: thử thật cầu nối, âm thanh, chứng chỉ"><figcaption data-en="Full check before driving: bridge, sound and certificate really tested">Kiểm tra kỹ trước khi ra xe: thử thật cầu nối, âm thanh, chứng chỉ</figcaption></figure>
-      <figure class="shot phone"><img src="img/app-3.webp" width="720" height="1600" loading="lazy" alt="Tùy chỉnh mọi thứ trên màn hình xe"><figcaption data-en="Everything on the car screen, your way">Tùy chỉnh mọi thứ trên màn hình xe</figcaption></figure>
-      <figure class="shot phone"><img src="img/app-4.webp" width="720" height="1600" loading="lazy" alt="Chọn bố cục 1 đến 4 ô trên màn xe"><figcaption data-en="Choose 1 to 4 tiles on the car screen">Chọn bố cục 1 đến 4 ô trên màn xe</figcaption></figure>
-      <figure class="shot phone"><img src="img/app-5.webp" width="720" height="1600" loading="lazy" alt="Màu sắc, hình nền và video nền"><figcaption data-en="Colours, wallpaper and video backgrounds">Màu sắc, hình nền và video nền</figcaption></figure>
-      <figure class="shot phone"><img src="img/app-6.webp" width="720" height="1600" loading="lazy" alt="Mua gói ngay trong ứng dụng"><figcaption data-en="Buy a plan right in the app">Mua gói ngay trong ứng dụng</figcaption></figure>
+<!-- HERO: CLEAR 2-APP SHOWCASE -->
+<section class="hero band light">
+  <div class="wrap">
+    <img class="hero-logo" src="logo.png" alt="TPlay">
+    <p class="eyebrow" data-en="ANDROID AUTO ECOSYSTEM">HỆ SINH THÁI ANDROID AUTO</p>
+    <h1 data-en="Two apps. One account.<br>Built for every car.">Hai phiên bản. Một tài khoản.<br>Trọn vẹn cho mọi dòng xe.</h1>
+    <p class="sub" data-en="Choose TPlay Auto for full Android app mirroring &amp; 4-way split screen, or TPlay Lite for a clean ad-free YouTube &amp; Dashboard experience with Developer Options turned completely OFF.">Chọn <b>TPlay Auto</b> nếu muốn mở mọi ứng dụng điện thoại &amp; chia 4 màn hình, hoặc chọn <b>TPlay Lite</b> nếu muốn xem YouTube sạch quảng cáo, gọn nhẹ và <b>tắt hoàn toàn Chế độ nhà phát triển</b> để dùng Ngân hàng &amp; VNeID thoải mái.</p>
+
+    <div class="hero-grid">
+      <!-- CARD 1: TPLAY AUTO -->
+      <div class="product-card auto-card">
+        <div>
+          <span class="pill pro" data-en="FULL EDITION · SPLIT SCREEN">BẢN ĐẦY ĐỦ · ĐA NHIỆM</span>
+          <h3>TPlay Auto</h3>
+          <p class="desc" data-en="Bring every app on your Android phone to the car screen: Google Maps, Waze, YouTube, Netflix, split up to 4 apps at once.">Đưa mọi ứng dụng trên điện thoại Android lên màn hình ô tô: Google Maps, Vietmap, YouTube, Zalo, chia tối đa 4 màn hình cùng lúc.</p>
+          <ul class="card-points">
+            <li><span class="ck">✓</span><span data-en="Open any app installed on your phone">Mở được mọi ứng dụng trên điện thoại</span></li>
+            <li><span class="ck">✓</span><span data-en="Split screen up to 4 apps side by side">Chia 2–4 màn hình (vừa xem bản đồ vừa xem video)</span></li>
+            <li><span class="ck">✓</span><span data-en="Voice commands &amp; rotary knob support">Điều khiển giọng nói tiếng Việt &amp; xe không cảm ứng</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="btn-row">
+            <a id="dl-auto-hero" class="btn amber" href="https://github.com/shinchii/tplay/releases/latest">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+              <span id="dl-auto-text" data-en="Download TPlay Auto">Tải TPlay Auto</span>
+            </a>
+            <a class="btn ghost-dark" href="#tplay-auto" data-en="Explore">Xem chi tiết</a>
+          </div>
+          <div class="ver-meta" id="meta-auto" data-en="Android 8.0+ · Auto OTA updates">Android 8.0 trở lên · Tự cập nhật OTA</div>
+        </div>
+      </div>
+
+      <!-- CARD 2: TPLAY LITE -->
+      <div class="product-card lite-card">
+        <div>
+          <span class="pill safe" data-en="NO DEVELOPER OPTIONS · BANKING SAFE">KHÔNG CẦN BẬT DEV · AN TOÀN NGÂN HÀNG &amp; VNEID</span>
+          <h3>TPlay Lite</h3>
+          <p class="desc" data-en="Lightweight Dashboard &amp; ad-free WebView (YouTube, VTV Go, web video) with Trackpad for non-touch cars. Keep Developer Options OFF.">Giao diện Dashboard đồng hồ, thời tiết &amp; WebView YouTube không quảng cáo, VTV Go, Trackpad cho xe không cảm ứng. Tắt hoàn toàn Chế độ nhà phát triển.</p>
+          <ul class="card-points">
+            <li><span class="ck">✓</span><span data-en="<b>Developer Options OFF</b> — 100% safe for Banking &amp; eID apps"><b>Không cần bật Chế độ nhà phát triển</b> — dùng app Ngân hàng &amp; VNeID thoải mái</span></li>
+            <li><span class="ck">✓</span><span data-en="Ad-free YouTube &amp; background audio across Android Auto apps">Xem YouTube chặn quảng cáo, phát nhạc nền khi chuyển sang Google Maps</span></li>
+            <li><span class="ck">✓</span><span data-en="Bento Dashboard: live clock, GPS weather, custom wallpaper &amp; Trackpad">Dashboard đồng hồ, thời tiết GPS, ảnh cá nhân &amp; Trackpad xe không cảm ứng</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="btn-row">
+            <a id="dl-lite-hero" class="btn blue" href="https://github.com/shinchii/tplay/releases/download/lite-v1.2.2/TPlayLite-1.2.2.apk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+              <span id="dl-lite-text" data-en="Download TPlay Lite">Tải TPlay Lite</span>
+            </a>
+            <a class="btn ghost" href="#tplay-lite" data-en="Explore">Xem chi tiết</a>
+          </div>
+          <div class="ver-meta" id="meta-lite" data-en="Android 8.0+ · Auto OTA updates">Android 8.0 trở lên · Tự cập nhật OTA</div>
+        </div>
+      </div>
     </div>
-    <div class="shot-nav" id="app-shot-nav"></div>
-  </section>
 
-  <section id="news-box" hidden>
-    <h2 id="news-title">Có gì mới</h2>
-    <ul class="news" id="news"></ul>
-  </section>
-
-  <section>
-    <h2 data-en="Install">Cài đặt</h2>
-    <ol class="steps">
-      <li data-en="Tap &lt;b&gt;Download TPlay Auto&lt;/b&gt; above and wait for the &lt;b&gt;.apk&lt;/b&gt; file.">Bấm <b>Tải TPlay Auto</b> ở trên, đợi tải xong file <b>.apk</b>.</li>
-      <li data-en="Open it. If asked, allow &lt;b&gt;installing unknown apps&lt;/b&gt; (for Chrome or your Files app).">Mở file vừa tải. Nếu điện thoại hỏi, cho phép <b>cài ứng dụng không rõ nguồn gốc</b> (cho Chrome hoặc ứng dụng Tệp).</li>
-      <li data-en="If Google Play Protect warns you, tap &lt;b&gt;More details → Install anyway&lt;/b&gt;: TPlay Auto isn&#x27;t on the Play Store, so Android always warns.">Nếu Google Play Protect cảnh báo, bấm <b>Thêm chi tiết → Vẫn cài đặt</b>. TPlay Auto không có trên CH Play nên Android cảnh báo như vậy.</li>
-      <li data-en="Open TPlay Auto, tap &lt;b&gt;Switch to English&lt;/b&gt;, and sign up with your &lt;b&gt;email&lt;/b&gt;. 7 days free, no card needed.">Mở TPlay Auto, đăng ký bằng <b>email hoặc số điện thoại</b>. Bạn được dùng thử 7 ngày, không cần thẻ.</li>
-      <li data-en="Plug the USB cable into the car. &lt;b&gt;The first time&lt;/b&gt;, the app sets up its certificate: unplug and plug in again.">Cắm cáp USB vào xe. <b>Lần đầu</b>, app tự thiết lập chứng chỉ: rút cáp ra và cắm lại là dùng được.</li>
-      <li data-en="If Android asks which app to open, choose &lt;b&gt;TPlay Auto&lt;/b&gt; and &lt;b&gt;Always&lt;/b&gt;.">Nếu Android hỏi "Mở bằng ứng dụng nào", chọn <b>TPlay Auto</b> và tích <b>Luôn dùng</b>, để lần sau vào thẳng.</li>
-    </ol>
-    <p class="note" data-en="TPlay Auto updates itself afterwards: no need to download it again.">Sau khi cài, TPlay Auto tự cập nhật bản mới. Không cần tải lại từ trang này.</p>
-  </section>
-
-  <section>
-    <h2 data-en="Features">Tính năng</h2>
-    <div class="features">
-      <div class="feature" data-en="&lt;b&gt;Split screen&lt;/b&gt;&lt;span&gt;Up to 4 apps at once on the car screen: maps, video, music…&lt;/span&gt;"><b>Chia màn hình</b><span>Tối đa 4 ứng dụng cùng lúc trên màn xe: bản đồ, video, nhạc…</span></div>
-      <div class="feature" data-en="&lt;b&gt;Phone calls on the car&lt;/b&gt;&lt;span&gt;Calls, including WhatsApp and Messenger, answered on the car screen.&lt;/span&gt;"><b>Giọng nói tiếng Việt</b><span>"Chỉ đường về nhà", "mở YouTube", "phát nhạc Sơn Tùng"…</span></div>
-      <div class="feature" data-en="&lt;b&gt;Any app&lt;/b&gt;&lt;span&gt;Google Maps, Waze, YouTube, Netflix, your local apps… right on the car screen.&lt;/span&gt;"><b>Mọi ứng dụng</b><span>Google Maps, Vietmap, Waze, YouTube, Zalo… ngay trên màn hình xe.</span></div>
-      <div class="feature" data-en="&lt;b&gt;Cars without touch&lt;/b&gt;&lt;span&gt;Works with the car&#x27;s rotary knob and buttons.&lt;/span&gt;"><b>Xe không cảm ứng</b><span>Điều khiển bằng núm xoay, nút điều hướng trên xe.</span></div>
+    <div class="shared-banner" data-en="&lt;b&gt;One shared account:&lt;/b&gt; Sign in once on your phone and use both TPlay Auto and TPlay Lite with the same subscription. 7-day free trial included.">
+      <b>Dùng chung 100% tài khoản &amp; gói cước:</b> Đăng ký 1 tài khoản dùng được cả <b>TPlay Auto</b> và <b>TPlay Lite</b> trên cùng 1 điện thoại. Tặng ngay 7 ngày dùng thử miễn phí.
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <h2 data-en="Pricing">Bảng giá</h2>
+<!-- SECTION 1: TPLAY LITE (AIRY APPLE LIGHT) -->
+<section id="tplay-lite" class="band gray">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow" data-en="TPLAY LITE · SAFE &amp; EFFORTLESS">TPLAY LITE · NHẸ MƯỢT &amp; AN TOÀN</p>
+      <h2 data-en="Clean Dashboard. Ad-free YouTube.<br>Zero banking app headaches.">Dashboard tinh gọn. YouTube sạch quảng cáo.<br>Dùng Ngân hàng &amp; VNeID hoàn toàn thoải mái.</h2>
+      <p class="sub" data-en="Designed natively for Android Auto so you never have to keep Developer Options enabled while driving or paying bills.">Chạy chuẩn nguồn Android Auto, giúp bạn tắt hoàn toàn Chế độ nhà phát triển sau khi thiết lập để dùng mọi ứng dụng Ngân hàng, VNeID mượt mà không bị cảnh báo.</p>
+    </div>
+
+    <div class="trust-box">
+      <div class="trust-icon">🛡</div>
+      <div class="trust-copy">
+        <h3 data-en="No Developer Options required — 100% Banking &amp; VNeID friendly">Không cần bật Chế độ nhà phát triển — Dùng Ngân hàng &amp; VNeID thoải mái</h3>
+        <p data-en="Unlike mirroring bridges that require Developer Options to stay on, TPlay Lite runs directly as an Android Auto app. Turn Developer Options off right after setup and enjoy full banking security.">Khác với các giải pháp phải giữ Chế độ nhà phát triển luôn bật, TPlay Lite chạy trực tiếp trên Android Auto. Sau khi đổi nguồn CH Play xong, bạn tắt hẳn Tùy chọn nhà phát triển là dùng app Ngân hàng &amp; VNeID hoàn toàn bình thường.</p>
+      </div>
+      <a id="dl-lite-sec" class="btn blue" href="https://github.com/shinchii/tplay/releases/download/lite-v1.2.2/TPlayLite-1.2.2.apk" data-en="Download TPlay Lite">Tải TPlay Lite</a>
+    </div>
+
+    <div class="gallery-block">
+      <p class="gallery-label" data-en="TPlay Lite on the car display">Hình ảnh TPlay Lite trên màn hình xe</p>
+      <div class="shots" id="lite-car-shots">
+        <figure class="shot"><img src="img/lite-car-1.webp" width="1600" height="893" alt="Dashboard TPlay Lite trên màn hình xe"><figcaption data-en="DailyMe Bento Dashboard: live clock, GPS weather, custom photo &amp; quick links">Dashboard đồng hồ, thời tiết, ảnh nền cá nhân &amp; lối tắt YouTube, VTV Go</figcaption></figure>
+        <figure class="shot"><img src="img/lite-car-2.webp" width="1600" height="893" loading="lazy" alt="Xem YouTube không quảng cáo trên TPlay Lite"><figcaption data-en="Ad-free YouTube with sleek left toolbar &amp; background playback">Xem YouTube chặn &amp; tự bỏ qua quảng cáo, thanh điều khiển gọn bên trái</figcaption></figure>
+        <figure class="shot"><img src="img/lite-car-3.webp" width="1600" height="893" loading="lazy" alt="Tìm kiếm video YouTube ngay trên màn hình xe"><figcaption data-en="Search YouTube or web pages right on the car screen or from your phone">Tìm kiếm video YouTube, VTV Go trực tiếp trên màn xe hoặc gửi từ điện thoại</figcaption></figure>
+      </div>
+      <div class="shot-nav" id="lite-car-nav"></div>
+    </div>
+
+    <div class="gallery-block">
+      <p class="gallery-label" data-en="TPlay Lite phone app">Giao diện TPlay Lite trên điện thoại</p>
+      <div class="shots" id="lite-app-shots">
+        <figure class="shot phone"><img src="img/lite-app-1.webp" width="720" height="1616" loading="lazy" alt="Trang chủ TPlay Lite"><figcaption data-en="Home: status, quick links, recent history &amp; voice search">Trang chủ: trạng thái sẵn sàng, liên kết nhanh &amp; tìm giọng nói</figcaption></figure>
+        <figure class="shot phone"><img src="img/lite-app-2.webp" width="720" height="1616" loading="lazy" alt="Bàn di chuột Trackpad cho xe không cảm ứng"><figcaption data-en="Built-in Trackpad &amp; media controls for non-touch cars">Bàn di chuột Trackpad &amp; điều khiển nhạc cho xe không cảm ứng</figcaption></figure>
+        <figure class="shot phone"><img src="img/lite-app-3.webp" width="720" height="1616" loading="lazy" alt="Tùy biến giao diện Dashboard, ảnh nền, thời tiết GPS"><figcaption data-en="Customize wallpaper, GPS weather, Day/Night theme &amp; Desktop zoom">Tùy biến ảnh nền xe, thời tiết GPS, chế độ Ngày/Đêm &amp; Desktop Mode</figcaption></figure>
+        <figure class="shot phone"><img src="img/lite-app-4.webp" width="720" height="1616" loading="lazy" alt="Cài đặt tài khoản, ngôn ngữ Anh/Việt, cập nhật OTA"><figcaption data-en="Shared account, EN/VI language, diagnostic logs &amp; auto OTA">Tài khoản dùng chung, đa ngôn ngữ Anh/Việt, gửi log lỗi &amp; OTA</figcaption></figure>
+      </div>
+      <div class="shot-nav" id="lite-app-nav"></div>
+    </div>
+
+    <div class="bento">
+      <div class="bento-card" data-en="&lt;b&gt;No Developer Options&lt;/b&gt;&lt;span&gt;Turn off Developer Options permanently after setup. Banking apps &amp; eID work with zero warnings.&lt;/span&gt;"><b>Tắt hẳn Chế độ nhà phát triển</b><span>Dùng ứng dụng Ngân hàng, VNeID hoàn toàn thoải mái, không bị chặn bảo mật.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Ad-Free YouTube &amp; Background Audio&lt;/b&gt;&lt;span&gt;Auto-skips YouTube ads and keeps music playing even when you switch to Google Maps.&lt;/span&gt;"><b>YouTube sạch quảng cáo &amp; phát nền</b><span>Tự bỏ qua quảng cáo YouTube, nhạc vẫn phát mượt khi chuyển sang Google Maps.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Non-Touch Car Trackpad&lt;/b&gt;&lt;span&gt;Control the car screen with a smooth virtual cursor from your phone + steering wheel media buttons.&lt;/span&gt;"><b>Trackpad cho xe không cảm ứng</b><span>Di chuột ảo mượt mà từ điện thoại, hỗ trợ phím chuyển bài trên vô lăng.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Personal Dashboard &amp; Desktop Mode&lt;/b&gt;&lt;span&gt;Custom car wallpaper, GPS weather, Day/Night auto theme, Desktop Mode &amp; text zoom.&lt;/span&gt;"><b>Dashboard cá nhân &amp; Chế độ Máy tính</b><span>Đặt ảnh gia đình lên màn xe, thời tiết GPS, chế độ Ngày/Đêm, Desktop Mode &amp; Zoom.</span></div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-card">
+        <h4 data-en="Quick Setup (TPlay Lite)">Hướng dẫn cài TPlay Lite</h4>
+        <ol>
+          <li data-en="Tap &lt;b&gt;Download TPlay Lite&lt;/b&gt; and install the &lt;b&gt;.apk&lt;/b&gt; file.">Bấm <b>Tải TPlay Lite</b> và cài file <b>.apk</b>.</li>
+          <li data-en="Open TPlay Lite and complete the 3 guided steps to activate Play Store source.">Mở TPlay Lite, làm theo 3 bước hướng dẫn trên màn hình để kích hoạt nguồn CH Play.</li>
+          <li data-en="Turn &lt;b&gt;Developer Options OFF&lt;/b&gt; right on the Home screen so banking apps work normally.">Bấm <b>Tắt Tùy chọn nhà phát triển</b> ngay trên Trang chủ để dùng app Ngân hàng &amp; VNeID thoải mái.</li>
+          <li data-en="Sign in with your existing TPlay account (or register for a 7-day free trial) and plug into your car.">Đăng nhập bằng tài khoản TPlay Auto sẵn có (hoặc đăng ký mới dùng thử 7 ngày) rồi cắm vào xe.</li>
+        </ol>
+      </div>
+      <div class="info-card" id="lite-news-card">
+        <h4 id="lite-news-title" data-en="Latest in TPlay Lite">Có gì mới trong TPlay Lite</h4>
+        <ul id="lite-news">
+          <li data-en="Auto OTA update popup, EN/VI language selector, FCM push notifications &amp; GPS weather.">Tự động báo cập nhật OTA, đa ngôn ngữ Anh/Việt, thông báo đẩy FCM &amp; thời tiết GPS.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: TPLAY AUTO (DEEP APPLE PRO DARK) -->
+<section id="tplay-auto" class="band dark">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow" data-en="TPLAY AUTO · PRO EDITION">TPLAY AUTO · BẢN CHUYÊN NGHIỆP</p>
+      <h2 data-en="Every phone app.<br>Up to 4 screens at once.">Mọi ứng dụng điện thoại.<br>Chia tối đa 4 màn hình cùng lúc.</h2>
+      <p class="sub" data-en="Full Android mirroring for Android Auto: run Google Maps, Vietmap, Waze, YouTube, Netflix, Zalo and any app on your phone side by side.">Trải nghiệm toàn diện nhất trên màn hình ô tô: chạy đồng thời Google Maps, Vietmap, YouTube, Zalo, Netflix… kèm điều khiển giọng nói tiếng Việt.</p>
+      <div class="btn-row" style="justify-content:center; margin-top:24px;">
+        <a id="dl-auto-sec" class="btn amber" href="https://github.com/shinchii/tplay/releases/latest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+          <span id="dl-auto-sec-text" data-en="Download TPlay Auto">Tải TPlay Auto</span>
+        </a>
+        <a id="drive" class="btn ghost-dark" href="#" hidden data-en="Backup download (Google Drive)">Tải dự phòng (Google Drive)</a>
+      </div>
+    </div>
+
+    <div class="gallery-block">
+      <p class="gallery-label" data-en="TPlay Auto in the car">Hình ảnh TPlay Auto trên xe</p>
+      <div class="shots" id="auto-car-shots">
+        <figure class="shot"><img src="img/xe-4.webp" width="1600" height="901" loading="lazy" alt="Chia 4 màn hình và mở mọi ứng dụng"><figcaption data-en="Four apps at once, and every app of your phone">Chia 4 màn hình, mở được mọi ứng dụng trong điện thoại</figcaption></figure>
+        <figure class="shot"><img src="img/xe-1.webp" width="1600" height="900" loading="lazy" alt="Google Maps và YouTube cùng lúc trên màn hình xe"><figcaption data-en="Google Maps and YouTube together on the car screen">Google Maps và YouTube cùng lúc trên màn hình xe</figcaption></figure>
+        <figure class="shot"><img src="img/xe-2.webp" width="1600" height="900" loading="lazy" alt="Vừa xem bản đồ vừa xem video"><figcaption data-en="The map and a video side by side">Vừa xem bản đồ vừa xem video, chia đôi màn hình</figcaption></figure>
+        <figure class="shot"><img src="img/xe-3.webp" width="1600" height="894" loading="lazy" alt="Chia 4 ứng dụng trên màn hình xe"><figcaption data-en="Four apps on the car screen">Chia 4 ứng dụng trên màn hình xe</figcaption></figure>
+        <figure class="shot"><img src="img/xe-5.webp" width="1600" height="452" loading="lazy" alt="Mọi ứng dụng của điện thoại trên màn xe"><figcaption data-en="All your phone&#x27;s apps on the car screen">Mọi ứng dụng của điện thoại ngay trên màn xe</figcaption></figure>
+        <figure class="shot"><img src="img/xe-6.webp" width="1600" height="900" loading="lazy" alt="Chỉ đường trong khi xem video"><figcaption data-en="Directions while a video plays">Chỉ đường trong khi xem video</figcaption></figure>
+      </div>
+      <div class="shot-nav" id="auto-car-nav"></div>
+    </div>
+
+    <div class="gallery-block">
+      <p class="gallery-label" data-en="TPlay Auto phone app">Giao diện TPlay Auto trên điện thoại</p>
+      <div class="shots" id="auto-app-shots">
+        <figure class="shot phone"><img src="img/app-1.webp" width="720" height="1600" loading="lazy" alt="Trang chủ: trạng thái kết nối xe"><figcaption data-en="Home: the car connection at a glance">Trang chủ: trạng thái kết nối xe</figcaption></figure>
+        <figure class="shot phone"><img src="img/app-2.webp" width="720" height="1600" loading="lazy" alt="Kiểm tra kỹ trước khi ra xe"><figcaption data-en="Full check before driving: bridge, sound &amp; certificate">Kiểm tra trước khi ra xe: cầu nối, âm thanh, chứng chỉ</figcaption></figure>
+        <figure class="shot phone"><img src="img/app-3.webp" width="720" height="1600" loading="lazy" alt="Tùy chỉnh mọi thứ trên màn hình xe"><figcaption data-en="Everything on the car screen, your way">Tùy chỉnh mọi thứ trên màn hình xe</figcaption></figure>
+        <figure class="shot phone"><img src="img/app-4.webp" width="720" height="1600" loading="lazy" alt="Chọn bố cục 1 đến 4 ô trên màn xe"><figcaption data-en="Choose 1 to 4 tiles on the car screen">Chọn bố cục 1 đến 4 ô trên màn xe</figcaption></figure>
+        <figure class="shot phone"><img src="img/app-5.webp" width="720" height="1600" loading="lazy" alt="Màu sắc, hình nền và video nền"><figcaption data-en="Colours, wallpaper and video backgrounds">Màu sắc, hình nền và video nền</figcaption></figure>
+        <figure class="shot phone"><img src="img/app-6.webp" width="720" height="1600" loading="lazy" alt="Mua gói ngay trong ứng dụng"><figcaption data-en="Buy a plan right in the app">Mua gói ngay trong ứng dụng</figcaption></figure>
+      </div>
+      <div class="shot-nav" id="auto-app-nav"></div>
+    </div>
+
+    <div class="bento">
+      <div class="bento-card" data-en="&lt;b&gt;Split screen (1–4 apps)&lt;/b&gt;&lt;span&gt;Run maps, video, music and messaging side by side on the car display.&lt;/span&gt;"><b>Chia 1–4 màn hình</b><span>Vừa dẫn đường Google Maps / Vietmap vừa xem YouTube, nhạc… cùng lúc.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Every Android app&lt;/b&gt;&lt;span&gt;Google Maps, Waze, YouTube, Netflix, Zalo and all apps installed on your phone.&lt;/span&gt;"><b>Mở mọi ứng dụng</b><span>Google Maps, Vietmap, Waze, YouTube, Netflix, Zalo… ngay trên màn hình xe.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Calls &amp; Voice control&lt;/b&gt;&lt;span&gt;Answer phone, WhatsApp &amp; Messenger calls right on the car screen.&lt;/span&gt;"><b>Giọng nói tiếng Việt</b><span>“Chỉ đường về nhà”, “mở YouTube”, “phát nhạc…” nhanh chóng khi lái xe.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Rotary knob &amp; buttons&lt;/b&gt;&lt;span&gt;Full control on non-touch cars using factory rotary knobs and buttons.&lt;/span&gt;"><b>Xe không cảm ứng</b><span>Điều khiển mượt bằng núm xoay và phím điều hướng nguyên bản trên xe.</span></div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-card">
+        <h4 data-en="Install TPlay Auto">Hướng dẫn cài TPlay Auto</h4>
+        <ol>
+          <li data-en="Tap &lt;b&gt;Download TPlay Auto&lt;/b&gt; and wait for the &lt;b&gt;.apk&lt;/b&gt; file.">Bấm <b>Tải TPlay Auto</b> và đợi tải xong file <b>.apk</b>.</li>
+          <li data-en="Allow &lt;b&gt;installing unknown apps&lt;/b&gt;. If Play Protect warns, tap &lt;b&gt;More details → Install anyway&lt;/b&gt;.">Cho phép <b>cài ứng dụng không rõ nguồn gốc</b>. Nếu Play Protect cảnh báo, bấm <b>Thêm chi tiết → Vẫn cài đặt</b>.</li>
+          <li data-en="Open TPlay Auto, sign up with your email or phone (7 days free), then plug USB into your car.">Mở TPlay Auto, đăng ký bằng <b>SĐT hoặc email</b> (dùng thử 7 ngày), rồi cắm cáp USB vào xe.</li>
+          <li data-en="First time: wait for certificate setup, unplug and plug in again, then choose &lt;b&gt;TPlay Auto → Always&lt;/b&gt;.">Lần đầu app tự thiết lập chứng chỉ: rút cáp cắm lại rồi chọn <b>TPlay Auto → Luôn dùng</b>.</li>
+        </ol>
+      </div>
+      <div class="info-card" id="auto-news-card">
+        <h4 id="auto-news-title" data-en="Latest in TPlay Auto">Có gì mới trong TPlay Auto</h4>
+        <ul id="auto-news">
+          <li data-en="Automatic in-app updates: no need to download again from this page.">TPlay Auto tự động cập nhật bản mới ngay trong ứng dụng.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section id="compare" class="band light">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow" data-en="WHICH ONE FITS YOU?">SO SÁNH NHANH</p>
+      <h2 data-en="TPlay Auto vs. TPlay Lite">Chọn phiên bản phù hợp với bạn.</h2>
+      <p class="sub" data-en="Or install both — your single TPlay account unlocks both apps on the same phone.">Hoặc cài song song cả hai — 1 tài khoản duy nhất mở khóa cả hai ứng dụng trên cùng 1 điện thoại.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th data-en="Feature">Tính năng</th>
+            <th>TPlay Auto</th>
+            <th>TPlay Lite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-en="&lt;b&gt;Developer Options OFF (Banking &amp; VNeID safe)&lt;/b&gt;"><b>Không cần bật Chế độ nhà phát triển (Ngân hàng, VNeID)</b></td>
+            <td class="muted-cell" data-en="Needed for bridge">Cần khi dùng cầu nối</td>
+            <td class="yes" data-en="✓ Always OFF">✓ Tắt hoàn toàn</td>
+          </tr>
+          <tr>
+            <td data-en="Open every phone app (Vietmap, Zalo, Netflix…)">Mở mọi ứng dụng điện thoại (Vietmap, Zalo, Netflix…)</td>
+            <td class="yes">✓</td>
+            <td class="muted-cell" data-en="WebView apps">Chạy qua WebView</td>
+          </tr>
+          <tr>
+            <td data-en="Split screen up to 4 apps simultaneously">Chia 2–4 màn hình cùng lúc</td>
+            <td class="yes">✓</td>
+            <td class="muted-cell">—</td>
+          </tr>
+          <tr>
+            <td data-en="Ad-free YouTube &amp; VTV Go while driving">Xem YouTube chặn quảng cáo &amp; VTV Go khi xe chạy</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td data-en="Background audio when switching to Google Maps">Phát nhạc nền khi chuyển sang Google Maps</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td data-en="Custom Photo Dashboard, Live Clock &amp; GPS Weather">Dashboard ảnh cá nhân, đồng hồ &amp; thời tiết GPS</td>
+            <td class="muted-cell" data-en="Themes &amp; wallpaper">Hình nền &amp; màu sắc</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td data-en="Non-touch car support (Rotary knob / Trackpad)">Hỗ trợ xe không cảm ứng (Núm xoay / Trackpad)</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td data-en="Shared account, VietQR / PayPal &amp; Auto OTA updates">Dùng chung tài khoản, gói cước &amp; tự cập nhật OTA</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="band gray">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow" data-en="SIMPLE PRICING">BẢNG GIÁ DÙNG CHUNG</p>
+      <h2 data-en="One plan unlocks both apps.">Một gói duy nhất. Mở khóa cả hai ứng dụng.</h2>
+      <p class="sub" data-en="Start with a 7-day free trial — no credit card required. Instant automatic activation via VietQR or PayPal.">Dùng thử miễn phí 7 ngày, không cần thẻ. Thanh toán chuyển khoản VietQR tự kích hoạt trong 5–15 giây hoặc PayPal/Thẻ quốc tế. Mỗi tài khoản dùng trên 1 điện thoại (dùng được cả TPlay Auto &amp; TPlay Lite).</p>
+    </div>
+
     <div class="plans">
-      <div class="plan" data-en="&lt;div class=&quot;price&quot;&gt;US$5&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;1 month&lt;/div&gt;"><div class="price">50.000đ</div><div class="name">1 tháng</div></div>
-      <div class="plan" data-en="&lt;div class=&quot;price&quot;&gt;US$15&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;1 year&lt;/div&gt;"><div class="price">100.000đ</div><div class="name">1 năm</div></div>
-      <div class="plan" data-en="&lt;div class=&quot;price&quot;&gt;US$30&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Lifetime&lt;/div&gt;"><div class="price">300.000đ</div><div class="name">Vĩnh viễn</div></div>
+      <div class="plan">
+        <div class="name" data-en="1 Month">Gói 1 Tháng</div>
+        <div class="price" data-en="US$5">50.000đ</div>
+        <div class="sub-price" data-en="30 days · Auto &amp; Lite">30 ngày · Dùng cả Auto &amp; Lite</div>
+      </div>
+      <div class="plan featured">
+        <span class="plan-tag" data-en="MOST POPULAR">TIẾT KIỆM NHẤT</span>
+        <div class="name" data-en="1 Year">Gói 1 Năm</div>
+        <div class="price" data-en="US$15">100.000đ</div>
+        <div class="sub-price" data-en="365 days · Auto &amp; Lite">365 ngày · Dùng cả Auto &amp; Lite</div>
+      </div>
+      <div class="plan">
+        <div class="name" data-en="Lifetime">Gói Vĩnh Viễn</div>
+        <div class="price" data-en="US$30">300.000đ</div>
+        <div class="sub-price" data-en="One-time payment · Forever">Trả 1 lần · Dùng trọn đời</div>
+      </div>
     </div>
-    <p class="note" data-en="7-day free trial. Pay in the app with PayPal or any card; your plan is activated automatically. One phone per account.">Dùng thử miễn phí 7 ngày. Thanh toán chuyển khoản ngay trong ứng dụng, kích hoạt tự động. Mỗi tài khoản dùng trên 1 điện thoại.</p>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <h2 data-en="Support">Hỗ trợ</h2>
-    <div class="support">
-      <a href="https://zalo.me/g/epn5z0myyjj6p8f47rbc" target="_blank" rel="noopener" class="vi-only">Nhóm hỗ trợ Zalo</a>
-      <a href="https://www.facebook.com/share/g/1A64SE6KYq/" target="_blank" rel="noopener" data-en="Facebook support group">Nhóm hỗ trợ Facebook</a>
+<!-- SUPPORT -->
+<section id="support" class="band light">
+  <div class="wrap center">
+    <p class="eyebrow" data-en="COMMUNITY &amp; SUPPORT">HỖ TRỢ KHÁCH HÀNG</p>
+    <h2 data-en="We&#x27;re here to help.">Cần hỗ trợ cài đặt?</h2>
+    <p class="sub" data-en="Join our community group for quick setup tips, car compatibility help, and updates.">Tham gia nhóm cộng đồng để được hướng dẫn cài đặt nhanh, chia sẻ kinh nghiệm theo từng dòng xe và cập nhật bản mới.</p>
+    <div class="support-row">
+      <a class="support-btn vi-only" href="https://zalo.me/g/epn5z0myyjj6p8f47rbc" target="_blank" rel="noopener">Nhóm hỗ trợ Zalo</a>
+      <a class="support-btn" href="https://www.facebook.com/share/g/1A64SE6KYq/" target="_blank" rel="noopener" data-en="Facebook Support Group">Nhóm hỗ trợ Facebook</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer data-en="© TPlay Auto · tplay.io.vn">© TPlay Auto · tplay.io.vn</footer>
-</main>
+<footer data-en="© TPlay · TPlay Auto &amp; TPlay Lite · tplay.io.vn">© TPlay · TPlay Auto &amp; TPlay Lite · tplay.io.vn</footer>
+
 <script>
-  // Backup download on Google Drive: put its share link here; the button stays hidden while empty.
   var DRIVE = "";
-
   function driveDirect(url) {
     var m = url.match(/\/d\/([\w-]+)/) || url.match(/[?&]id=([\w-]+)/);
     return m ? "https://drive.google.com/uc?export=download&id=" + m[1] : url;
   }
   if (DRIVE) {
     var d = document.getElementById("drive");
-    d.href = driveDirect(DRIVE);
-    d.hidden = false;
+    if (d) { d.href = driveDirect(DRIVE); d.hidden = false; }
   }
 
-  // Screenshot galleries: dots follow the scroll; tap a picture to see it full screen.
-  [["shots", "shot-nav"], ["app-shots", "app-shot-nav"]].forEach(function (ids) {
+  // Interactive galleries with dot indicators + full-screen lightbox zoom
+  [
+    ["lite-car-shots", "lite-car-nav"],
+    ["lite-app-shots", "lite-app-nav"],
+    ["auto-car-shots", "auto-car-nav"],
+    ["auto-app-shots", "auto-app-nav"]
+  ].forEach(function (ids) {
     var box = document.getElementById(ids[0]), nav = document.getElementById(ids[1]);
-    if (!box) return;
+    if (!box || !nav) return;
     var shots = box.querySelectorAll(".shot");
     shots.forEach(function (s, i) {
       var b = document.createElement("button");
-      b.setAttribute("aria-label", "Ảnh " + (i + 1));
+      b.setAttribute("aria-label", "Image " + (i + 1));
       b.onclick = function () { box.scrollTo({ left: s.offsetLeft - box.offsetLeft - 4, behavior: "smooth" }); };
       nav.appendChild(b);
-      s.querySelector("img").onclick = function () {
-        var z = document.createElement("div"); z.id = "zoom";
-        var im = document.createElement("img"); im.src = this.src; im.alt = this.alt;
-        z.appendChild(im); z.onclick = function () { z.remove(); };
-        document.body.appendChild(z);
-      };
+      var img = s.querySelector("img");
+      if (img) {
+        img.onclick = function () {
+          var z = document.createElement("div"); z.id = "zoom";
+          var im = document.createElement("img"); im.src = this.src; im.alt = this.alt;
+          z.appendChild(im); z.onclick = function () { z.remove(); };
+          document.body.appendChild(z);
+        };
+      }
     });
     function mark() {
-      var mid = box.scrollLeft + box.clientWidth / 2, best = 0, d = 1e9;
-      shots.forEach(function (s, i) { var c = s.offsetLeft - box.offsetLeft + s.offsetWidth / 2, k = Math.abs(c - mid); if (k < d) { d = k; best = i; } });
+      var mid = box.scrollLeft + box.clientWidth / 2, best = 0, dist = 1e9;
+      shots.forEach(function (s, i) {
+        var c = s.offsetLeft - box.offsetLeft + s.offsetWidth / 2, k = Math.abs(c - mid);
+        if (k < dist) { dist = k; best = i; }
+      });
       nav.querySelectorAll("button").forEach(function (b, i) { b.className = i === best ? "on" : ""; });
     }
-    box.addEventListener("scroll", mark, { passive: true }); mark();
+    box.addEventListener("scroll", mark, { passive: true });
+    mark();
   });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var z = document.getElementById("zoom"); if (z) z.remove(); } });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { var z = document.getElementById("zoom"); if (z) z.remove(); }
+  });
 
-  // Language: Vietnamese for phones and browsers set to Vietnamese, English for everyone else;
-  // the VI / EN button switches and is remembered.
+  // Language switcher (auto Vietnamese on vi browsers, English otherwise)
   var LANG = (function () {
     try { var saved = localStorage.getItem("tplay_lang"); if (saved === "vi" || saved === "en") return saved; } catch (e) {}
     var l = (navigator.languages && navigator.languages[0]) || navigator.language || "vi";
     return /^vi/i.test(l) ? "vi" : "en";
   })();
-  var update = null;
+
+  var updateAuto = null;
   var updateLite = null;
+
+  function renderAutoUpdate() {
+    var u = updateAuto;
+    if (!u || !u.apk) return;
+    var en = LANG === "en";
+    ["dl-auto-hero", "dl-auto-sec"].forEach(function (id) {
+      var el = document.getElementById(id); if (el) el.href = u.apk;
+    });
+    ["dl-auto-text", "dl-auto-sec-text"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = (en ? "Download TPlay Auto " : "Tải TPlay Auto ") + u.version;
+    });
+    var mb = u.size ? " · " + (u.size / 1048576).toFixed(0) + " MB" : "";
+    var meta = document.getElementById("meta-auto");
+    if (meta) {
+      meta.textContent = en
+        ? "v" + u.version + " · " + u.date + mb + " · Android 8.0+"
+        : "Phiên bản " + u.version + " · " + u.date + mb + " · Android 8.0+";
+    }
+    var ul = document.getElementById("auto-news");
+    if (ul && !en && u.notes && u.notes.length) {
+      ul.innerHTML = "";
+      u.notes.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+      document.getElementById("auto-news-title").textContent = "Có gì mới trong TPlay Auto " + u.version;
+    }
+  }
+
   function renderLiteUpdate() {
     var l = updateLite;
     if (!l || !l.apk) return;
     var en = LANG === "en";
-    var a = document.getElementById("dl-lite");
+    ["dl-lite-hero", "dl-lite-sec"].forEach(function (id) {
+      var el = document.getElementById(id); if (el) el.href = l.apk;
+    });
     var t = document.getElementById("dl-lite-text");
-    if (a) a.href = l.apk;
-    if (t) {
-      var mb = l.size ? " · " + (l.size / 1048576).toFixed(0) + " MB" : "";
-      t.textContent = en
-        ? "Download TPlay Lite " + l.version + mb
-        : "Tải TPlay Lite " + l.version + mb + " (Dùng chung tài khoản)";
+    if (t) t.textContent = (en ? "Download TPlay Lite " : "Tải TPlay Lite ") + l.version;
+    var sec = document.getElementById("dl-lite-sec");
+    if (sec) sec.textContent = (en ? "Download TPlay Lite " : "Tải TPlay Lite ") + l.version;
+    var mb = l.size ? " · " + (l.size / 1048576).toFixed(0) + " MB" : "";
+    var meta = document.getElementById("meta-lite");
+    if (meta) {
+      meta.textContent = en
+        ? "v" + l.version + " · " + l.date + mb + " · Android 8.0+"
+        : "Phiên bản " + l.version + " · " + l.date + mb + " · Android 8.0+";
+    }
+    var ul = document.getElementById("lite-news");
+    if (ul && !en && l.notes && l.notes.length) {
+      ul.innerHTML = "";
+      l.notes.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+      document.getElementById("lite-news-title").textContent = "Có gì mới trong TPlay Lite " + l.version;
     }
   }
-  function renderUpdate() {
-    var u = update;
-    if (!u || !u.apk) return;
-    var en = LANG === "en";
-    document.getElementById("dl").href = u.apk;
-    document.getElementById("dl-text").textContent = (en ? "Download TPlay Auto " : "Tải TPlay Auto ") + u.version;
-    var mb = u.size ? " · " + (u.size / 1048576).toFixed(0) + " MB" : "";
-    document.getElementById("meta").textContent = en
-      ? "Version " + u.version + " · " + u.date + mb + " · Android 8.0 or newer · 7-day free trial"
-      : "Phiên bản " + u.version + " · " + u.date + mb + " · Android 8.0 trở lên · Dùng thử 7 ngày";
-    // What's new is written in Vietnamese: shown to Vietnamese readers only.
-    var ul = document.getElementById("news");
-    ul.innerHTML = "";
-    if (!en && u.notes && u.notes.length) {
-      u.notes.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
-      document.getElementById("news-title").textContent = "Có gì mới trong bản " + u.version;
-      document.getElementById("news-box").hidden = false;
-    } else document.getElementById("news-box").hidden = true;
-  }
+
   function applyLang() {
     var en = LANG === "en";
     document.documentElement.lang = LANG;
-    document.title = en ? "TPlay Auto – Download" : "TPlay Auto – Tải ứng dụng";
+    document.title = en ? "TPlay – TPlay Auto & TPlay Lite for Android Auto" : "TPlay – TPlay Auto & TPlay Lite cho Android Auto";
     document.querySelectorAll("[data-en]").forEach(function (el) {
       if (el.dataset.vi === undefined) el.dataset.vi = el.innerHTML;
       el.innerHTML = en ? el.dataset.en : el.dataset.vi;
     });
     document.getElementById("lang").textContent = en ? "Tiếng Việt" : "English";
-    renderUpdate();
+    renderAutoUpdate();
     renderLiteUpdate();
   }
+
   document.getElementById("lang").onclick = function () {
     LANG = LANG === "en" ? "vi" : "en";
     try { localStorage.setItem("tplay_lang", LANG); } catch (e) {}
@@ -262,7 +776,7 @@
 
   fetch("update.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (u) { update = u; renderUpdate(); })
+    .then(function (u) { updateAuto = u; renderAutoUpdate(); })
     .catch(function () {});
 
   fetch("update-lite.json", { cache: "no-store" })

@@ -1,13 +1,13 @@
 {
-  "version": "1.2.1",
-  "versionName": "1.2.1",
-  "versionCode": 5,
+  "version": "1.2.2",
+  "versionName": "1.2.2",
+  "versionCode": 6,
   "date": "28/11/2026",
   "notes": [
-    "Thêm khung nhập mã 6 số nổi có bàn phím số tích hợp ngay trên màn hình Gỡ lỗi không dây — bấm đủ 6 số tự động ghép nối & kích hoạt nguồn CH Play, không cần kéo thanh thông báo"
+    "Tối giản luồng kích hoạt nguồn CH Play (bỏ quyền hiển thị trên ứng dụng khác), tự động mở lại app sau khi hoàn tất"
   ],
-  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.1/TPlayLite-1.2.1.apk",
-  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.1/TPlayLite-1.2.1.apk",
-  "sha256": "04f265aac6a50cd16a475d952d40507a412401b024f1ccfe016325d658d76222",
-  "size": 18676852
+  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.2/TPlayLite-1.2.2.apk",
+  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.2/TPlayLite-1.2.2.apk",
+  "sha256": "990b25aa985d7aec185cd4069a603a3a2460937ce3eee121250841bc6b960f01",
+  "size": 18676820
 }
