@@ -1,15 +1,13 @@
 {
-  "version": "1.2.0",
-  "versionName": "1.2.0",
-  "versionCode": 4,
+  "version": "1.2.1",
+  "versionName": "1.2.1",
+  "versionCode": 5,
   "date": "28/11/2026",
   "notes": [
-    "Nhận thông báo đẩy (FCM Push) trực tiếp từ trang quản trị & nhắc gia hạn",
-    "Thêm Chế độ Máy tính (Desktop Mode) & Cỡ chữ/Zoom WebView (85%–130%)",
-    "Thêm Lịch sử trang vừa mở gần đây trên Trang chủ, Thời tiết theo vị trí GPS và nút Xóa cache/Cookie WebView"
+    "Thêm khung nhập mã 6 số nổi có bàn phím số tích hợp ngay trên màn hình Gỡ lỗi không dây — bấm đủ 6 số tự động ghép nối & kích hoạt nguồn CH Play, không cần kéo thanh thông báo"
   ],
-  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.0/TPlayLite-1.2.0.apk",
-  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.0/TPlayLite-1.2.0.apk",
-  "sha256": "b10bb7570fa7ed05053b427d34113212a40f7eb3ed406854b1d0b09f80e7dcf4",
-  "size": 18676820
+  "apk": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.1/TPlayLite-1.2.1.apk",
+  "url": "https://github.com/shinchii/tplay/releases/download/lite-v1.2.1/TPlayLite-1.2.1.apk",
+  "sha256": "04f265aac6a50cd16a475d952d40507a412401b024f1ccfe016325d658d76222",
+  "size": 18676852
 }
