@@ -159,6 +159,12 @@
   .auto-card .ck { color: #ffb300; }
   .lite-card .ck { color: var(--green); }
   .ver-meta { font-size: 12px; margin-top: 12px; opacity: .72; }
+  .hero-thumb {
+    width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px;
+    margin: 0 0 18px; box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
+  }
+  .auto-card .hero-thumb { border: 1px solid rgba(255, 255, 255, .14); }
+  .lite-card .hero-thumb { border: 1px solid rgba(0, 113, 227, .14); box-shadow: 0 12px 28px rgba(0, 113, 227, .12); }
   .shared-banner {
     margin: 24px auto 0; max-width: 720px; padding: 14px 20px; border-radius: 16px;
     background: var(--surface); border: 1px solid var(--line);
@@ -346,6 +352,7 @@
         <div>
           <span class="pill pro" data-en="FULL EDITION · SPLIT SCREEN">BẢN ĐẦY ĐỦ · ĐA NHIỆM</span>
           <h3>TPlay Auto</h3>
+          <img class="hero-thumb" src="img/xe-1.webp" width="1600" height="900" alt="TPlay Auto trên màn hình xe">
           <p class="desc" data-en="Bring every app on your Android phone to the car screen: Google Maps, Waze, YouTube, Netflix, split up to 4 apps at once.">Đưa mọi ứng dụng trên điện thoại Android lên màn hình ô tô: Google Maps, Vietmap, YouTube, Zalo, chia tối đa 4 màn hình cùng lúc.</p>
           <ul class="card-points">
             <li><span class="ck">✓</span><span data-en="Open any app installed on your phone">Mở được mọi ứng dụng trên điện thoại</span></li>
@@ -370,6 +377,7 @@
         <div>
           <span class="pill safe" data-en="NO DEVELOPER OPTIONS · BANKING SAFE">KHÔNG CẦN BẬT DEV · AN TOÀN NGÂN HÀNG &amp; VNEID</span>
           <h3>TPlay Lite</h3>
+          <img class="hero-thumb" src="img/lite-car-1.webp" width="1600" height="893" alt="TPlay Lite trên màn hình xe">
           <p class="desc" data-en="Lightweight Dashboard &amp; ad-free WebView (YouTube, VTV Go, web video) with Trackpad for non-touch cars. Keep Developer Options OFF.">Giao diện Dashboard đồng hồ, thời tiết &amp; WebView YouTube không quảng cáo, VTV Go, Trackpad cho xe không cảm ứng. Tắt hoàn toàn Chế độ nhà phát triển.</p>
           <ul class="card-points">
             <li><span class="ck">✓</span><span data-en="<b>Developer Options OFF</b> — 100% safe for Banking &amp; eID apps"><b>Không cần bật Chế độ nhà phát triển</b> — dùng app Ngân hàng &amp; VNeID thoải mái</span></li>
@@ -392,72 +400,6 @@
 
     <div class="shared-banner" data-en="&lt;b&gt;One shared account:&lt;/b&gt; Sign in once on your phone and use both TPlay Auto and TPlay Lite with the same subscription. 7-day free trial included.">
       <b>Dùng chung 100% tài khoản &amp; gói cước:</b> Đăng ký 1 tài khoản dùng được cả <b>TPlay Auto</b> và <b>TPlay Lite</b> trên cùng 1 điện thoại. Tặng ngay 7 ngày dùng thử miễn phí.
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 1: TPLAY LITE (AIRY APPLE LIGHT) -->
-<section id="tplay-lite" class="band gray">
-  <div class="wrap">
-    <div class="center">
-      <p class="eyebrow" data-en="TPLAY LITE · SAFE &amp; EFFORTLESS">TPLAY LITE · NHẸ MƯỢT &amp; AN TOÀN</p>
-      <h2 data-en="Clean Dashboard. Ad-free YouTube.<br>Zero banking app headaches.">Dashboard tinh gọn. YouTube sạch quảng cáo.<br>Dùng Ngân hàng &amp; VNeID hoàn toàn thoải mái.</h2>
-      <p class="sub" data-en="Designed natively for Android Auto so you never have to keep Developer Options enabled while driving or paying bills.">Chạy chuẩn nguồn Android Auto, giúp bạn tắt hoàn toàn Chế độ nhà phát triển sau khi thiết lập để dùng mọi ứng dụng Ngân hàng, VNeID mượt mà không bị cảnh báo.</p>
-    </div>
-
-    <div class="trust-box">
-      <div class="trust-icon">🛡</div>
-      <div class="trust-copy">
-        <h3 data-en="No Developer Options required — 100% Banking &amp; VNeID friendly">Không cần bật Chế độ nhà phát triển — Dùng Ngân hàng &amp; VNeID thoải mái</h3>
-        <p data-en="Unlike mirroring bridges that require Developer Options to stay on, TPlay Lite runs directly as an Android Auto app. Turn Developer Options off right after setup and enjoy full banking security.">Khác với các giải pháp phải giữ Chế độ nhà phát triển luôn bật, TPlay Lite chạy trực tiếp trên Android Auto. Sau khi đổi nguồn CH Play xong, bạn tắt hẳn Tùy chọn nhà phát triển là dùng app Ngân hàng &amp; VNeID hoàn toàn bình thường.</p>
-      </div>
-      <a id="dl-lite-sec" class="btn blue" href="https://github.com/shinchii/tplay/releases/download/lite-v1.2.2/TPlayLite-1.2.2.apk" data-en="Download TPlay Lite">Tải TPlay Lite</a>
-    </div>
-
-    <div class="gallery-block">
-      <p class="gallery-label" data-en="TPlay Lite on the car display">Hình ảnh TPlay Lite trên màn hình xe</p>
-      <div class="shots" id="lite-car-shots">
-        <figure class="shot"><img src="img/lite-car-1.webp" width="1600" height="893" alt="Dashboard TPlay Lite trên màn hình xe"><figcaption data-en="DailyMe Bento Dashboard: live clock, GPS weather, custom photo &amp; quick links">Dashboard đồng hồ, thời tiết, ảnh nền cá nhân &amp; lối tắt YouTube, VTV Go</figcaption></figure>
-        <figure class="shot"><img src="img/lite-car-2.webp" width="1600" height="893" loading="lazy" alt="Xem YouTube không quảng cáo trên TPlay Lite"><figcaption data-en="Ad-free YouTube with sleek left toolbar &amp; background playback">Xem YouTube chặn &amp; tự bỏ qua quảng cáo, thanh điều khiển gọn bên trái</figcaption></figure>
-        <figure class="shot"><img src="img/lite-car-3.webp" width="1600" height="893" loading="lazy" alt="Tìm kiếm video YouTube ngay trên màn hình xe"><figcaption data-en="Search YouTube or web pages right on the car screen or from your phone">Tìm kiếm video YouTube, VTV Go trực tiếp trên màn xe hoặc gửi từ điện thoại</figcaption></figure>
-      </div>
-      <div class="shot-nav" id="lite-car-nav"></div>
-    </div>
-
-    <div class="gallery-block">
-      <p class="gallery-label" data-en="TPlay Lite phone app">Giao diện TPlay Lite trên điện thoại</p>
-      <div class="shots" id="lite-app-shots">
-        <figure class="shot phone"><img src="img/lite-app-1.webp" width="720" height="1616" loading="lazy" alt="Trang chủ TPlay Lite"><figcaption data-en="Home: status, quick links, recent history &amp; voice search">Trang chủ: trạng thái sẵn sàng, liên kết nhanh &amp; tìm giọng nói</figcaption></figure>
-        <figure class="shot phone"><img src="img/lite-app-2.webp" width="720" height="1616" loading="lazy" alt="Bàn di chuột Trackpad cho xe không cảm ứng"><figcaption data-en="Built-in Trackpad &amp; media controls for non-touch cars">Bàn di chuột Trackpad &amp; điều khiển nhạc cho xe không cảm ứng</figcaption></figure>
-        <figure class="shot phone"><img src="img/lite-app-3.webp" width="720" height="1616" loading="lazy" alt="Tùy biến giao diện Dashboard, ảnh nền, thời tiết GPS"><figcaption data-en="Customize wallpaper, GPS weather, Day/Night theme &amp; Desktop zoom">Tùy biến ảnh nền xe, thời tiết GPS, chế độ Ngày/Đêm &amp; Desktop Mode</figcaption></figure>
-        <figure class="shot phone"><img src="img/lite-app-4.webp" width="720" height="1616" loading="lazy" alt="Cài đặt tài khoản, ngôn ngữ Anh/Việt, cập nhật OTA"><figcaption data-en="Shared account, EN/VI language, diagnostic logs &amp; auto OTA">Tài khoản dùng chung, đa ngôn ngữ Anh/Việt, gửi log lỗi &amp; OTA</figcaption></figure>
-      </div>
-      <div class="shot-nav" id="lite-app-nav"></div>
-    </div>
-
-    <div class="bento">
-      <div class="bento-card" data-en="&lt;b&gt;No Developer Options&lt;/b&gt;&lt;span&gt;Turn off Developer Options permanently after setup. Banking apps &amp; eID work with zero warnings.&lt;/span&gt;"><b>Tắt hẳn Chế độ nhà phát triển</b><span>Dùng ứng dụng Ngân hàng, VNeID hoàn toàn thoải mái, không bị chặn bảo mật.</span></div>
-      <div class="bento-card" data-en="&lt;b&gt;Ad-Free YouTube &amp; Background Audio&lt;/b&gt;&lt;span&gt;Auto-skips YouTube ads and keeps music playing even when you switch to Google Maps.&lt;/span&gt;"><b>YouTube sạch quảng cáo &amp; phát nền</b><span>Tự bỏ qua quảng cáo YouTube, nhạc vẫn phát mượt khi chuyển sang Google Maps.</span></div>
-      <div class="bento-card" data-en="&lt;b&gt;Non-Touch Car Trackpad&lt;/b&gt;&lt;span&gt;Control the car screen with a smooth virtual cursor from your phone + steering wheel media buttons.&lt;/span&gt;"><b>Trackpad cho xe không cảm ứng</b><span>Di chuột ảo mượt mà từ điện thoại, hỗ trợ phím chuyển bài trên vô lăng.</span></div>
-      <div class="bento-card" data-en="&lt;b&gt;Personal Dashboard &amp; Desktop Mode&lt;/b&gt;&lt;span&gt;Custom car wallpaper, GPS weather, Day/Night auto theme, Desktop Mode &amp; text zoom.&lt;/span&gt;"><b>Dashboard cá nhân &amp; Chế độ Máy tính</b><span>Đặt ảnh gia đình lên màn xe, thời tiết GPS, chế độ Ngày/Đêm, Desktop Mode &amp; Zoom.</span></div>
-    </div>
-
-    <div class="two-col">
-      <div class="info-card">
-        <h4 data-en="Quick Setup (TPlay Lite)">Hướng dẫn cài TPlay Lite</h4>
-        <ol>
-          <li data-en="Tap &lt;b&gt;Download TPlay Lite&lt;/b&gt; and install the &lt;b&gt;.apk&lt;/b&gt; file.">Bấm <b>Tải TPlay Lite</b> và cài file <b>.apk</b>.</li>
-          <li data-en="Open TPlay Lite and complete the 3 guided steps to activate Play Store source.">Mở TPlay Lite, làm theo 3 bước hướng dẫn trên màn hình để kích hoạt nguồn CH Play.</li>
-          <li data-en="Turn &lt;b&gt;Developer Options OFF&lt;/b&gt; right on the Home screen so banking apps work normally.">Bấm <b>Tắt Tùy chọn nhà phát triển</b> ngay trên Trang chủ để dùng app Ngân hàng &amp; VNeID thoải mái.</li>
-          <li data-en="Sign in with your existing TPlay account (or register for a 7-day free trial) and plug into your car.">Đăng nhập bằng tài khoản TPlay Auto sẵn có (hoặc đăng ký mới dùng thử 7 ngày) rồi cắm vào xe.</li>
-        </ol>
-      </div>
-      <div class="info-card" id="lite-news-card">
-        <h4 id="lite-news-title" data-en="Latest in TPlay Lite">Có gì mới trong TPlay Lite</h4>
-        <ul id="lite-news">
-          <li data-en="Auto OTA update popup, EN/VI language selector, FCM push notifications &amp; GPS weather.">Tự động báo cập nhật OTA, đa ngôn ngữ Anh/Việt, thông báo đẩy FCM &amp; thời tiết GPS.</li>
-        </ul>
-      </div>
     </div>
   </div>
 </section>
@@ -525,6 +467,72 @@
         <h4 id="auto-news-title" data-en="Latest in TPlay Auto">Có gì mới trong TPlay Auto</h4>
         <ul id="auto-news">
           <li data-en="Automatic in-app updates: no need to download again from this page.">TPlay Auto tự động cập nhật bản mới ngay trong ứng dụng.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: TPLAY LITE (AIRY APPLE LIGHT) -->
+<section id="tplay-lite" class="band gray">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow" data-en="TPLAY LITE · SAFE &amp; EFFORTLESS">TPLAY LITE · NHẸ MƯỢT &amp; AN TOÀN</p>
+      <h2 data-en="Clean Dashboard. Ad-free YouTube.<br>Zero banking app headaches.">Dashboard tinh gọn. YouTube sạch quảng cáo.<br>Dùng Ngân hàng &amp; VNeID hoàn toàn thoải mái.</h2>
+      <p class="sub" data-en="Designed natively for Android Auto so you never have to keep Developer Options enabled while driving or paying bills.">Chạy chuẩn nguồn Android Auto, giúp bạn tắt hoàn toàn Chế độ nhà phát triển sau khi thiết lập để dùng mọi ứng dụng Ngân hàng, VNeID mượt mà không bị cảnh báo.</p>
+    </div>
+
+    <div class="trust-box">
+      <div class="trust-icon">🛡</div>
+      <div class="trust-copy">
+        <h3 data-en="No Developer Options required — 100% Banking &amp; VNeID friendly">Không cần bật Chế độ nhà phát triển — Dùng Ngân hàng &amp; VNeID thoải mái</h3>
+        <p data-en="Unlike mirroring bridges that require Developer Options to stay on, TPlay Lite runs directly as an Android Auto app. Turn Developer Options off right after setup and enjoy full banking security.">Khác với các giải pháp phải giữ Chế độ nhà phát triển luôn bật, TPlay Lite chạy trực tiếp trên Android Auto. Sau khi đổi nguồn CH Play xong, bạn tắt hẳn Tùy chọn nhà phát triển là dùng app Ngân hàng &amp; VNeID hoàn toàn bình thường.</p>
+      </div>
+      <a id="dl-lite-sec" class="btn blue" href="https://github.com/shinchii/tplay/releases/download/lite-v1.2.2/TPlayLite-1.2.2.apk" data-en="Download TPlay Lite">Tải TPlay Lite</a>
+    </div>
+
+    <div class="gallery-block">
+      <p class="gallery-label" data-en="TPlay Lite on the car display">Hình ảnh TPlay Lite trên màn hình xe</p>
+      <div class="shots" id="lite-car-shots">
+        <figure class="shot"><img src="img/lite-car-1.webp" width="1600" height="893" alt="Dashboard TPlay Lite trên màn hình xe"><figcaption data-en="DailyMe Bento Dashboard: live clock, GPS weather, custom photo &amp; quick links">Dashboard đồng hồ, thời tiết, ảnh nền cá nhân &amp; lối tắt YouTube, VTV Go</figcaption></figure>
+        <figure class="shot"><img src="img/lite-car-2.webp" width="1600" height="893" loading="lazy" alt="Xem YouTube không quảng cáo trên TPlay Lite"><figcaption data-en="Ad-free YouTube with sleek left toolbar &amp; background playback">Xem YouTube chặn &amp; tự bỏ qua quảng cáo, thanh điều khiển gọn bên trái</figcaption></figure>
+        <figure class="shot"><img src="img/lite-car-3.webp" width="1600" height="893" loading="lazy" alt="Tìm kiếm video YouTube ngay trên màn hình xe"><figcaption data-en="Search YouTube or web pages right on the car screen or from your phone">Tìm kiếm video YouTube, VTV Go trực tiếp trên màn xe hoặc gửi từ điện thoại</figcaption></figure>
+      </div>
+      <div class="shot-nav" id="lite-car-nav"></div>
+    </div>
+
+    <div class="gallery-block">
+      <p class="gallery-label" data-en="TPlay Lite phone app">Giao diện TPlay Lite trên điện thoại</p>
+      <div class="shots" id="lite-app-shots">
+        <figure class="shot phone"><img src="img/lite-app-1.webp" width="720" height="1616" loading="lazy" alt="Trang chủ TPlay Lite"><figcaption data-en="Home: status, quick links, recent history &amp; voice search">Trang chủ: trạng thái sẵn sàng, liên kết nhanh &amp; tìm giọng nói</figcaption></figure>
+        <figure class="shot phone"><img src="img/lite-app-2.webp" width="720" height="1616" loading="lazy" alt="Bàn di chuột Trackpad cho xe không cảm ứng"><figcaption data-en="Built-in Trackpad &amp; media controls for non-touch cars">Bàn di chuột Trackpad &amp; điều khiển nhạc cho xe không cảm ứng</figcaption></figure>
+        <figure class="shot phone"><img src="img/lite-app-3.webp" width="720" height="1616" loading="lazy" alt="Tùy biến giao diện Dashboard, ảnh nền, thời tiết GPS"><figcaption data-en="Customize wallpaper, GPS weather, Day/Night theme &amp; Desktop zoom">Tùy biến ảnh nền xe, thời tiết GPS, chế độ Ngày/Đêm &amp; Desktop Mode</figcaption></figure>
+        <figure class="shot phone"><img src="img/lite-app-4.webp" width="720" height="1616" loading="lazy" alt="Cài đặt tài khoản, ngôn ngữ Anh/Việt, cập nhật OTA"><figcaption data-en="Shared account, EN/VI language, diagnostic logs &amp; auto OTA">Tài khoản dùng chung, đa ngôn ngữ Anh/Việt, gửi log lỗi &amp; OTA</figcaption></figure>
+      </div>
+      <div class="shot-nav" id="lite-app-nav"></div>
+    </div>
+
+    <div class="bento">
+      <div class="bento-card" data-en="&lt;b&gt;No Developer Options&lt;/b&gt;&lt;span&gt;Turn off Developer Options permanently after setup. Banking apps &amp; eID work with zero warnings.&lt;/span&gt;"><b>Tắt hẳn Chế độ nhà phát triển</b><span>Dùng ứng dụng Ngân hàng, VNeID hoàn toàn thoải mái, không bị chặn bảo mật.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Ad-Free YouTube &amp; Background Audio&lt;/b&gt;&lt;span&gt;Auto-skips YouTube ads and keeps music playing even when you switch to Google Maps.&lt;/span&gt;"><b>YouTube sạch quảng cáo &amp; phát nền</b><span>Tự bỏ qua quảng cáo YouTube, nhạc vẫn phát mượt khi chuyển sang Google Maps.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Non-Touch Car Trackpad&lt;/b&gt;&lt;span&gt;Control the car screen with a smooth virtual cursor from your phone + steering wheel media buttons.&lt;/span&gt;"><b>Trackpad cho xe không cảm ứng</b><span>Di chuột ảo mượt mà từ điện thoại, hỗ trợ phím chuyển bài trên vô lăng.</span></div>
+      <div class="bento-card" data-en="&lt;b&gt;Personal Dashboard &amp; Desktop Mode&lt;/b&gt;&lt;span&gt;Custom car wallpaper, GPS weather, Day/Night auto theme, Desktop Mode &amp; text zoom.&lt;/span&gt;"><b>Dashboard cá nhân &amp; Chế độ Máy tính</b><span>Đặt ảnh gia đình lên màn xe, thời tiết GPS, chế độ Ngày/Đêm, Desktop Mode &amp; Zoom.</span></div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-card">
+        <h4 data-en="Quick Setup (TPlay Lite)">Hướng dẫn cài TPlay Lite</h4>
+        <ol>
+          <li data-en="Tap &lt;b&gt;Download TPlay Lite&lt;/b&gt; and install the &lt;b&gt;.apk&lt;/b&gt; file.">Bấm <b>Tải TPlay Lite</b> và cài file <b>.apk</b>.</li>
+          <li data-en="Open TPlay Lite and complete the 3 guided steps to activate Play Store source.">Mở TPlay Lite, làm theo 3 bước hướng dẫn trên màn hình để kích hoạt nguồn CH Play.</li>
+          <li data-en="Turn &lt;b&gt;Developer Options OFF&lt;/b&gt; right on the Home screen so banking apps work normally.">Bấm <b>Tắt Tùy chọn nhà phát triển</b> ngay trên Trang chủ để dùng app Ngân hàng &amp; VNeID thoải mái.</li>
+          <li data-en="Sign in with your existing TPlay account (or register for a 7-day free trial) and plug into your car.">Đăng nhập bằng tài khoản TPlay Auto sẵn có (hoặc đăng ký mới dùng thử 7 ngày) rồi cắm vào xe.</li>
+        </ol>
+      </div>
+      <div class="info-card" id="lite-news-card">
+        <h4 id="lite-news-title" data-en="Latest in TPlay Lite">Có gì mới trong TPlay Lite</h4>
+        <ul id="lite-news">
+          <li data-en="Auto OTA update popup, EN/VI language selector, FCM push notifications &amp; GPS weather.">Tự động báo cập nhật OTA, đa ngôn ngữ Anh/Việt, thông báo đẩy FCM &amp; thời tiết GPS.</li>
         </ul>
       </div>
     </div>
